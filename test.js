@@ -1,9 +1,9 @@
 require("babel/register");
 
 var Repositories = require('./server/loader/Repositories');
-var Config = require('./server.config');
+var config = require('./server.config');
 
-var repositories = new Repositories(Config.Repositories, Config.Authors);
+var repositories = new Repositories(config.REPOSITORIES, config.AUTHORS);
 
 repositories.getMonthlyContributions().then(function (result) {
   console.log(result);
