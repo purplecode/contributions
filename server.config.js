@@ -1,0 +1,3 @@
+module.exports = {
+  'mint': '../mint'
+}
