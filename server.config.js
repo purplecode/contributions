@@ -1,4 +1,5 @@
 export let Repositories = {
+  'contributions': '.',
   'mint': '../mint'
 };
 

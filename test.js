@@ -1,12 +1,12 @@
 require("babel/register");
 
-var GitRepository = require('./server/loader/GitRepository');
+var Loader = require('./server/loader/Loader');
 var Config = require('./server.config');
 
-var repo = new GitRepository('mint', '.', Config.Authors);
+var loader = new Loader(Config.Repositories, Config.Authors);
 
-repo.getHistory().then(function (history) {
-  console.log(history.getMonthlyContributions());
+loader.getMonthlyContributions().then(function (result) {
+  console.log(result);
 }).catch(function(e) {
   console.log(e);
   console.log(e.stack);
