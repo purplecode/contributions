@@ -1,8 +1,9 @@
 require("babel/register");
 
 var GitRepository = require('./server/loader/GitRepository');
+var Config = require('./server.config');
 
-var repo = new GitRepository('mint', '.');
+var repo = new GitRepository('mint', '.', Config.Authors);
 
 repo.getHistory().then(function (history) {
   console.log(history.getMonthlyContributions());

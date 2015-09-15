@@ -5,75 +5,40 @@ import History from './History';
 var Repository = require("nodegit").Repository;
 
 export default class GitRepository {
-  constructor(name, path) {
+  constructor(name, path, authors) {
     this.name = name;
     this.path = path;
+    this.authors = authors;
   }
 
   getHistory() {
     return new Promise((resolve, reject) => {
       Repository.open(this.path)
-        .then(function (repo) {
+        .then((repo) => {
           return repo.getMasterCommit();
         })
-        .then(function (firstCommitOnMaster) {
+        .then((firstCommitOnMaster) => {
           let history = new History();
           let logs = firstCommitOnMaster.history();
 
-          logs.on("commit", function (commit) {
+          logs.on("commit", (commit) => {
             console.log("processing " + commit.sha());
-            let author = {
-              name: commit.author().name(),
-              email: commit.author().email()
-            };
+            let author = this.authors.getId(commit.author().name(), commit.author().email());
             history.addCommit(commit.sha(), author, new Date(commit.date()), commit.message());
           });
 
-          logs.on('end', function (commits) {
+          logs.on('end', ()  => {
             resolve(history);
           });
 
-          logs.on('error', function (error) {
+          logs.on('error', (error) => {
             reject(error);
           });
 
           logs.start();
-        }).catch(function (error) {
+        }).catch((error)  => {
           reject(error);
         });
     });
   }
 }
-
-
-
-
-
-
-//
-//Repository.open('d:/workspace/mint')
-//  .then(function(repo) {
-//    return repo.getMasterCommit();
-//  })
-//  .then(function(firstCommitOnMaster) {
-//    var history = firstCommitOnMaster.history();
-//
-//    var count = 0;
-//    history.on("commit", function(commit) {
-//      if (++count >= 9) {
-//        return;
-//      }
-//      console.log("commit " + commit.sha());
-//
-//      var author = commit.author();
-//      console.log("Author:\t" + author.name() + " <" + author.email() + ">");
-//      console.log("Date:\t" + commit.date());
-//      console.log("\n    " + commit.message());
-//    });
-//
-//    history.start();
-//  }).catch(function(e) {
-//    console.log('error', e);
-//  });
-//
-//require('express')().listen(3000);
