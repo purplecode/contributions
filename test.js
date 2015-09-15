@@ -5,7 +5,7 @@ var GitRepository = require('./server/loader/GitRepository');
 var repo = new GitRepository('mint', '../mint');
 
 repo.getHistory().then(function (history) {
-  console.log(history);
+  console.log(history.getMonthlyContributions());
 });
 
 // wait for promise
