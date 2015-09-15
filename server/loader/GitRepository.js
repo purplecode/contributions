@@ -13,17 +13,20 @@ export default class GitRepository {
   getHistory() {
     return new Promise((resolve, reject) => {
       Repository.open(this.path)
-        .then(function(repo) {
+        .then(function (repo) {
           return repo.getMasterCommit();
         })
-        .then(function(firstCommitOnMaster) {
+        .then(function (firstCommitOnMaster) {
           let history = new History();
           let logs = firstCommitOnMaster.history();
 
-          logs.on("commit", function(commit) {
+          logs.on("commit", function (commit) {
             console.log("processing " + commit.sha());
-            try {
-              history.addCommit(commit.sha(), _.pick(commit.author(), ['name', 'email']), new Date(commit.date()), commit.message());
+            let author = {
+              name: commit.author().name(),
+              email: commit.author().email()
+            };
+            history.addCommit(commit.sha(), author, new Date(commit.date()), commit.message());
           });
 
           logs.on('end', function (commits) {
@@ -35,7 +38,7 @@ export default class GitRepository {
           });
 
           logs.start();
-        }).catch(function(error) {
+        }).catch(function (error) {
           reject(error);
         });
     });
