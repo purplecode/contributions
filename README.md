@@ -1,14 +1,14 @@
-react-webpack-express
+contributions
 =====================
 
-Boilerplate to start developing npm react components with webpack. Includes flux as npm module.
+*under construction*
 
 
 Usage
 =====
 
 ```
-git clone https://github.com/mixxen/react-webpack-express.git myapp
+git clone https://github.com/purplecode/contributions.git myapp
 cd myapp
 npm install
 npm run build
