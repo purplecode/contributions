@@ -1,11 +1,11 @@
 require("babel/register");
 
-var Loader = require('./server/loader/Loader');
+var Repositories = require('./server/loader/Repositories');
 var Config = require('./server.config');
 
-var loader = new Loader(Config.Repositories, Config.Authors);
+var repositories = new Repositories(Config.Repositories, Config.Authors);
 
-loader.getMonthlyContributions().then(function (result) {
+repositories.getMonthlyContributions().then(function (result) {
   console.log(result);
 }).catch(function(e) {
   console.log(e);

@@ -1,7 +1,7 @@
 import GitRepository from './GitRepository';
 import _ from 'lodash';
 
-export default class Loader {
+export default class Repositories {
   constructor(repositories, authors) {
     this.repositories = repositories;
     this.authors = authors;

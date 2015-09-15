@@ -22,7 +22,6 @@ export default class GitRepository {
           let logs = firstCommitOnMaster.history();
 
           logs.on("commit", (commit) => {
-            console.log("processing " + commit.sha());
             let author = this.authors.getId(commit.author().name(), commit.author().email());
             history.addCommit(commit.sha(), author, new Date(commit.date()), commit.message());
           });
