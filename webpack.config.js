@@ -18,8 +18,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.jsx$/, loader: 'jsx-loader?harmony'},
-      {test: /\.js$/ , loader: 'jsx-loader?harmony'}
+      {test: /\.jsx$/, loader: 'babel-loader'},
+      {test: /\.js$/ , loader: 'babel-loader'}
     ]
   },
   plugins: [
