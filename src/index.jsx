@@ -1,15 +1,10 @@
-var React = require('react');
+let React = require('react');
 
 require("react-tap-event-plugin")();
 
-
 var Contributions = require('./components/Contributions.jsx');
-var Test = require('./components/Test.jsx');
 
 React.render(
-  <div>
-    <Test/>
-    <Contributions/>
-  </div>,
+  <Contributions/>,
   document.getElementById("react-container")
 );

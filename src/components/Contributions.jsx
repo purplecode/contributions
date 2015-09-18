@@ -1,7 +1,23 @@
-var React = require('react');
-var $ = require('jquery');
+let React = require('react');
+let $ = require('jquery');
+let mui = require('material-ui');
+let Table = require('./Table.jsx');
+
+const ThemeManager = new mui.Styles.ThemeManager();
+
 
 var Contributions = React.createClass({
+
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  },
+
   getInitialState: function () {
     return {};
   },
@@ -16,26 +32,7 @@ var Contributions = React.createClass({
 
   render: function () {
     return (
-      <table>
-        {
-          Object.keys(this.state).map(function (repo) {
-            return <tbody>
-              <tr>
-                <th>{repo}</th>
-              </tr>
-              <tr>
-                {
-                  Object.keys(this.state[repo]).map(function (user) {
-                    return <tr>
-                      <td>{user}</td>
-                    </tr>;
-                  })
-                }
-              </tr>
-            </tbody>
-          }.bind(this))
-        }
-      </table>
+      <Table contributions={this.state}/>
     );
   }
 });
