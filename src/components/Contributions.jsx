@@ -1,5 +1,5 @@
 let React = require('react');
-let $ = require('jquery');
+let nanoajax = require('nanoajax');
 let mui = require('material-ui');
 let Table = require('./Table.jsx');
 
@@ -23,11 +23,11 @@ var Contributions = React.createClass({
   },
 
   componentDidMount: function () {
-    $.get('/api/v1/contributions', function (results) {
+    nanoajax.ajax('/api/v1/contributions', (code, results) => {
       if (this.isMounted()) {
-        this.setState(results);
+        this.setState(JSON.parse(results));
       }
-    }.bind(this));
+    });
   },
 
   render: function () {

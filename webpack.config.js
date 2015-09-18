@@ -10,7 +10,7 @@ var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 module.exports = {
   cache: true,
   entry: {
-    main:  './src/index.jsx'
+    main: './src/index.jsx'
   },
   output: {
     path: 'public/build',
@@ -18,8 +18,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.jsx$/, loader: 'babel-loader'},
-      {test: /\.js$/ , loader: 'babel-loader'}
+      {test: /\.(js|jsx)$/, loader: 'babel-loader'}
     ]
   },
   plugins: [
@@ -27,3 +26,5 @@ module.exports = {
     commonsPlugin
   ]
 };
+
+
