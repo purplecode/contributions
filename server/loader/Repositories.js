@@ -15,7 +15,7 @@ export default class Repositories {
         });
     });
     return Promise.all(promises).then((history) => {
-      return _.zip(names, history);
+      return _.zipObject(names, history);
     });
   }
 }

@@ -5,6 +5,7 @@
   "dependencies": {
     "babel": "^5.8.23",
     "flux": "^2.0.1",
+    "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "nodegit": "^0.4.1",
@@ -26,7 +27,6 @@
   "scripts": {
     "start": "webpack --progress --colors --watch -d",
     "build": "webpack --progress --colors -p",
-    "server": "node server/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node server/www"
   }
 }
