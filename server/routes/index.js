@@ -5,7 +5,7 @@ import {REPOSITORIES, AUTHORS} from '../../server.config';
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Main' });
+  res.render('index');
 });
 
 router.get('/api/v1/contributions', function(req, res) {

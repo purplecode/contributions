@@ -2,8 +2,6 @@ import nodegit from 'nodegit';
 import _ from 'lodash';
 import History from './History';
 
-var Repository = require("nodegit").Repository;
-
 export default class GitRepository {
   constructor(name, path, authors) {
     this.name = name;
@@ -13,7 +11,7 @@ export default class GitRepository {
 
   getHistory() {
     return new Promise((resolve, reject) => {
-      Repository.open(this.path)
+      nodegit.Repository.open(this.path)
         .then((repo) => {
           return repo.getMasterCommit();
         })
