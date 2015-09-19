@@ -26,8 +26,6 @@ class Table extends React.Component {
       </table>
     );
   }
-
-
 }
 
 module.exports = Table;

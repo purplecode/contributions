@@ -18,7 +18,10 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.(js|jsx)$/, loader: 'babel-loader'}
+      {test: /\.(js|jsx)$/, loader: 'babel-loader'},
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader' },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
+      { test: /\.less/,  loader: "style!css!less" }
     ]
   },
   plugins: [

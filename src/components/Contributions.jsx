@@ -2,6 +2,7 @@ let React = require('react');
 let nanoajax = require('nanoajax');
 let mui = require('material-ui');
 let Table = require('./Table.jsx');
+let Navbar = require('./Navbar.jsx');
 
 const ThemeManager = new mui.Styles.ThemeManager();
 
@@ -32,7 +33,10 @@ var Contributions = React.createClass({
 
   render: function () {
     return (
-      <Table contributions={this.state}/>
+      <div>
+        <Navbar/>
+        <Table contributions={this.state}/>
+      </div>
     );
   }
 });
