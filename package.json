@@ -14,6 +14,7 @@
     "moment": "^2.10.6",
     "nodegit": "^0.4.1",
     "react": "^0.13.2",
+    "react-d3": "^0.4.0",
     "react-fontawesome": "^0.3.3",
     "react-tap-event-plugin": "^0.1.7",
     "style-loader": "^0.12.4",

@@ -3,19 +3,21 @@ let React = require('react');
 class Table extends React.Component {
 
   render() {
+    let contributions = this.props.contributions;
     return (
       <table>
         {
-          Object.keys(this.props.contributions).map(function (repo) {
+          Object.keys(contributions).map(function (user) {
             return <tbody>
             <tr>
-              <th>{repo}</th>
+              <th colspan="2">{user}</th>
             </tr>
             <tr>
               {
-                Object.keys(this.props.contributions[repo]).map(function (user) {
+                Object.keys(contributions[user]).map(function (date) {
                   return <tr>
-                    <td>{user}</td>
+                    <td>{date}</td>
+                    <td>{contributions[user][date]}</td>
                   </tr>;
                 })
               }

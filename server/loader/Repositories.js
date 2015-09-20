@@ -7,15 +7,28 @@ export default class Repositories {
     this.authors = authors;
   }
 
-  getMonthlyContributions() {
-    let names = Object.keys(this.repositories);
-    let promises = names.map((name)=> {
-        return new GitRepository(name, this.repositories[name], this.authors).getHistory().then((history) => {
-          return history.getMonthlyContributions();
-        });
+  getTotalContributions() {
+    let promises = Object.keys(this.repositories).map((name)=> {
+      return new GitRepository(name, this.repositories[name], this.authors).getHistory().then((history) => {
+        return history.getMonthlyContributions();
+      });
     });
     return Promise.all(promises).then((history) => {
-      return _.zipObject(names, history);
+      return history.reduce((memo, repoContributions) => {
+        _.forEach(repoContributions, function (userContributions, user) {
+          _.forEach(userContributions, function (count, date) {
+            memo[user] = memo[user] || {};
+            memo[user][date] = (memo[user][date] || 0) + count;
+          });
+        });
+        return memo;
+      }, {});
+    });
+  }
+
+  getContributions(repoName) {
+    return new GitRepository(repoName, this.repositories[repoName], this.authors).getHistory().then((history) => {
+      return history.getMonthlyContributions();
     });
   }
 }
