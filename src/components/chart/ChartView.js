@@ -47,7 +47,7 @@ export default class ChartView {
     y.domain(model.getYDomain());
 
     var series = svg.selectAll(".series")
-      .data(model.getSeries())
+      .data(model.getSeriesData())
       .enter().append("g")
       .attr("data-legend", function (d) {
         return d.name;

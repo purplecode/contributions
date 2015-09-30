@@ -17,7 +17,7 @@ class Chart extends React.Component {
 
   render() {
     return (
-      <div ref="chartContainer">
+      <div className="chart" ref="chartContainer">
         {this.renderChart(this.props.contributions)}
       </div>
     )
