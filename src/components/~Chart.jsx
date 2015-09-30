@@ -1,42 +1,28 @@
 let _ = require('lodash');
 let React = require('react');
 
-var parseDate = (month) => {
-  return d3.time.format("%Y-%m").parse(month);
-}
-
-var getDistinctValues = (contributions) => {
-  let distinct = _.values(contributions).reduce((memo, item) => {
-    _.keys(item).forEach(memo.add.bind(memo));
-    return memo;
-  }, new Set());
-  return [...distinct].sort();
-};
-
-var createChartData = (contributions) => {
-  let distinctValues = getDistinctValues(contributions);
-  let shifts = {};
-  return Object.keys(contributions).map((user) => {
-    return {
-      label: user,
-      values: distinctValues.map((date) => {
-        let y0 = (shifts[date] || 0);
-        let y1 = y0 + (contributions[user][date] || 0);
-        shifts[date] = y1;
-        return {
-          date: parseDate(date),
-          y0: y0,
-          y: y1
-        };
-      })
-    }
-  });
-};
-
-var getXDomain = (contributions) => {
-  let distinctValues = getDistinctValues(contributions);
-  return [parseDate(distinctValues[0]), parseDate(distinctValues[distinctValues.length - 1])];
-}
+//let getDistinctValues = (contributions) => {
+//  let distinct = _.values(contributions).reduce((memo, item) => {
+//    _.keys(item).forEach(memo.add.bind(memo));
+//    return memo;
+//  }, new Set());
+//  return [...distinct].sort();
+//};
+//
+//let createChartData = (contributions) => {
+//  let distinctValues = getDistinctValues(contributions);
+//  return Object.keys(contributions).map((user) => {
+//    return {
+//      label: user,
+//      values: distinctValues.map((date) => {
+//        return {
+//          x: date,
+//          y: contributions[user][date] || 0
+//        };
+//      })
+//    }
+//  });
+//};
 
 
 let options = {};
@@ -45,15 +31,18 @@ let d3 = require('d3');
 
 class Chart extends React.Component {
 
-  renderChart(contributions) {
 
-    if (_.isEmpty(contributions)) {
-      return ;
-    }
+  componentDidMount() {
 
-    var margin = {top: 20, right: 20, bottom: 60, left: 50},
+    //let data = createChartData(this.props.contributions);
+    //if (_.isEmpty(data)) {
+    //  return (<div>Loading...</div>)
+    //}
+
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
+
 
     var x = d3.time.scale()
       .range([0, width]);
@@ -70,32 +59,38 @@ class Chart extends React.Component {
       .orient("left");
 
     var area = d3.svg.area()
-      .x(function (d) {
+      .x(function(d) {
         return x(d.date);
       })
-      .y0(function (d) {
-        return y(0 + d.y0);
+      .y0(function(d) {
+        return y(0);
       })
-      .y1(function (d) {
+      .y1(function(d) {
         return y(0 + d.y);
       });
 
-    let color = d3.scale.category20();
+    var date = (month) => {
+      return d3.time.format("%Y-%m").parse(`2015-${month}`);
+    }
 
     var chartData = {
       getXDomain() {
-        let distinctValues = getDistinctValues(contributions);
-        return [parseDate(distinctValues[0]), parseDate(distinctValues[distinctValues.length - 1])];
+        return [date(1),date(4)];
       },
       getYDomain() {
-        return [0, 200];
+        return [0,5];
       },
       getColor(name) {
-        let rand = Math.floor(Math.random() * 20);
-        return color(rand);
+        return name === 1 ? '#bbb' : '#222';
       },
       getAreaSeries() {
-        return createChartData(contributions);
+        return [{
+          name: 1,
+          values: [{date:date(1),y:1},{date:date(2),y:1.5},{date:date(3),y:2},{date:date(4),y:4}]
+        }, {
+          name: 2,
+          values: [{date:date(1),y:0},{date:date(2),y:1},{date:date(3),y:1},{date:date(4),y:3}]
+        }];
       }
     }
 
@@ -114,20 +109,20 @@ class Chart extends React.Component {
     var series = svg.selectAll(".series")
       .data(chartData.getAreaSeries())
       .enter().append("g")
-      .attr("data-legend", function (d) {
+      .attr("data-legend", function(d) {
         return d.name;
       })
-      .attr("data-legend-color", function (d) {
+      .attr("data-legend-color", function(d) {
         return chartData.getColor(d.name);
       })
       .attr("class", "series");
 
     series.append("path")
       .attr("class", "area")
-      .attr("d", function (d) {
+      .attr("d", function(d) {
         return area(d.values);
       })
-      .style("fill", function (d) {
+      .style("fill", function(d) {
         return chartData.getColor(d.name);
       });
 
@@ -149,10 +144,8 @@ class Chart extends React.Component {
 
   render() {
     return (
-      <div ref="chartContainer">
-        {this.renderChart(this.props.contributions)}
-      </div>
-    )
+      <div ref="chartContainer"></div>
+    );
   }
 }
 
