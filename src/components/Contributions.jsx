@@ -31,12 +31,12 @@ var Contributions = React.createClass({
       }
     });
   },
-// <Table contributions={this.state}/>
   render: function () {
     return (
       <div>
         <Navbar/>
         <Chart contributions={this.state}/>
+        <Table contributions={this.state}/>
       </div>
     );
   }

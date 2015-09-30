@@ -8,8 +8,8 @@ export default class ChartView {
   render(model) {
 
     var margin = {top: 20, right: 20, bottom: 60, left: 50},
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      width = 1200 - margin.left - margin.right,
+      height = 700 - margin.top - margin.bottom;
 
     var x = d3.time.scale()
       .range([0, width]);
@@ -46,6 +46,10 @@ export default class ChartView {
 
     y.domain(model.getYDomain());
 
+    var tooltip = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
     var series = svg.selectAll(".series")
       .data(model.getSeriesData())
       .enter().append("g")
@@ -64,6 +68,18 @@ export default class ChartView {
       })
       .style("fill", function (d) {
         return model.getColor(d.name);
+      }).on("mouseover", function (d) {
+        tooltip.transition()
+          .duration(200)
+          .style("opacity", .9);
+        tooltip.html(d.name)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function (d) {
+        tooltip.transition()
+          .duration(500)
+          .style("opacity", 0);
       });
 
     svg.append("g")
