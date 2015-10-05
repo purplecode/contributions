@@ -1,9 +1,5 @@
 import express from 'express';
 import Projects from '../loader/Projects'
-import {PROJECTS, AUTHORS} from '../../server.config';
-
-let router = express.Router();
-let projects = new Projects(PROJECTS, AUTHORS);
 
 let onError = (res) => {
   return (e) => {
@@ -13,27 +9,31 @@ let onError = (res) => {
   };
 };
 
-router.get('/', function (req, res) {
-  res.render('index');
-});
+module.exports = (config) => {
 
-router.get('/api/v1/projects', function (req, res) {
-  res.send(projects.getProjectDefinitions());
-});
+  let router = express.Router();
+  let projects = new Projects(config.PROJECTS, config.AUTHORS);
 
-router.get('/api/v1/contributions/:project', function (req, res) {
-  let projectKey = req.params.project;
-  projects.getProjectContributions(projectKey).then(function (results) {
-    res.send(results);
-  }).catch(onError(res));
-});
+  router.get('/', function (req, res) {
+    res.render('index');
+  });
 
-router.get('/api/v1/contributions', function (req, res) {
-  var repositories = new Projects(PROJECTS, AUTHORS);
-  repositories.getTotalContributions().then(function (results) {
-    res.send(results);
-  }).catch(onError(res));
-});
+  router.get('/api/v1/projects', function (req, res) {
+    res.send(projects.getProjectDefinitions());
+  });
 
+  router.get('/api/v1/contributions/:project', function (req, res) {
+    let projectKey = req.params.project;
+    projects.getProjectContributions(projectKey).then(function (results) {
+      res.send(results);
+    }).catch(onError(res));
+  });
 
-module.exports = router;
+  router.get('/api/v1/contributions', function (req, res) {
+    projects.getTotalContributions().then(function (results) {
+      res.send(results);
+    }).catch(onError(res));
+  });
+
+  return router;
+};

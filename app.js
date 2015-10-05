@@ -7,7 +7,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./server/routes/index');
+var config = require('./server.nokia');
+var routes = require('./server/routes/index')(config);
 
 var app = express();
 
