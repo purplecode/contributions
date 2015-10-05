@@ -7,7 +7,7 @@ let ChartView = require('./chart/ChartView');
 class Chart extends React.Component {
 
   renderChart(contributions) {
-    if (_.isEmpty(contributions)) {
+    if (_.isEmpty(contributions) || !this.refs.chartContainer) {
       return;
     }
     var element = this.refs.chartContainer.getDOMNode();

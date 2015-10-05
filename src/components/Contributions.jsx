@@ -4,6 +4,7 @@ let mui = require('material-ui');
 let Table = require('./Table.jsx');
 let Chart = require('./Chart.jsx');
 let Navbar = require('./Navbar.jsx');
+let Project = require('./Project.jsx');
 
 const ThemeManager = new mui.Styles.ThemeManager();
 
@@ -21,13 +22,21 @@ var Contributions = React.createClass({
   },
 
   getInitialState: function () {
-    return {};
+    return {
+      total: {},
+      projects: []
+    };
   },
 
   componentDidMount: function () {
     nanoajax.ajax('/api/v1/contributions', (code, results) => {
       if (this.isMounted()) {
-        this.setState(JSON.parse(results));
+        this.setState({total: JSON.parse(results)});
+      }
+    });
+    nanoajax.ajax('/api/v1/projects', (code, results) => {
+      if (this.isMounted()) {
+        this.setState({projects: JSON.parse(results)});
       }
     });
   },
@@ -35,8 +44,12 @@ var Contributions = React.createClass({
     return (
       <div>
         <Navbar/>
-        <Chart contributions={this.state}/>
-        <Table contributions={this.state}/>
+        <Chart contributions={this.state.total}/>
+        {
+          this.state.projects.map(function (project) {
+            return <Project definition={project} />;
+          })
+        }
       </div>
     );
   }

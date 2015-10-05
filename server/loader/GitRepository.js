@@ -3,8 +3,7 @@ import _ from 'lodash';
 import History from './History';
 
 export default class GitRepository {
-  constructor(name, path, authors) {
-    this.name = name;
+  constructor(path, authors) {
     this.path = path;
     this.authors = authors;
   }

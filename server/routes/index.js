@@ -1,9 +1,9 @@
 import express from 'express';
-import Repositories from '../loader/Repositories'
-import {REPOSITORIES, AUTHORS} from '../../server.config';
+import Projects from '../loader/Projects'
+import {PROJECTS, AUTHORS} from '../../server.config';
 
 let router = express.Router();
-let repositories = new Repositories(REPOSITORIES, AUTHORS);
+let projects = new Projects(PROJECTS, AUTHORS);
 
 let onError = (res) => {
   return (e) => {
@@ -17,15 +17,19 @@ router.get('/', function (req, res) {
   res.render('index');
 });
 
-router.get('/api/v1/contributions/:repo', function (req, res) {
-  let repoName = req.params.repo;
-  repositories.getContributions(repoName).then(function (results) {
+router.get('/api/v1/projects', function (req, res) {
+  res.send(projects.getProjectDefinitions());
+});
+
+router.get('/api/v1/contributions/:project', function (req, res) {
+  let projectKey = req.params.project;
+  projects.getProjectContributions(projectKey).then(function (results) {
     res.send(results);
   }).catch(onError(res));
 });
 
 router.get('/api/v1/contributions', function (req, res) {
-  var repositories = new Repositories(REPOSITORIES, AUTHORS);
+  var repositories = new Projects(PROJECTS, AUTHORS);
   repositories.getTotalContributions().then(function (results) {
     res.send(results);
   }).catch(onError(res));

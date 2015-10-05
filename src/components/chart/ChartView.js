@@ -36,6 +36,8 @@ export default class ChartView {
         return y(0 + d.y);
       });
 
+    d3.select(this.element).select("svg").remove();
+
     var svg = d3.select(this.element).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
