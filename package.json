@@ -8,6 +8,7 @@
     "babel-loader": "^5.3.2",
     "chart.js": "^1.0.2",
     "chartist": "^0.9.4",
+    "commander": "^2.8.1",
     "css-loader": "^0.18.0",
     "d3": "^3.5.6",
     "file-loader": "^0.8.4",
