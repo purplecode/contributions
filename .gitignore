@@ -3,4 +3,3 @@ node_modules
 public/build
 .idea
 server.nokia.js
-server.dev.js
