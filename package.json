@@ -43,6 +43,7 @@
   "scripts": {
     "start": "webpack --progress --colors --watch -d",
     "build": "webpack --progress --colors -p",
+    "build-local": "node ./node_modules/webpack/bin/webpack.js --progress --colors -p",
     "server": "node server/www"
   }
 }
