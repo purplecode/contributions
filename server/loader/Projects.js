@@ -9,7 +9,11 @@ export default class Projects {
 
   getProjectDefinitions() {
     return _.keys(this.projects).map((key) => {
-      return {key : key, name: this.projects[key].name};
+      return {
+        key : key,
+        name: this.projects[key].name,
+        description: this.projects[key].description
+      };
     });
   }
 

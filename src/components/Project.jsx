@@ -1,7 +1,9 @@
 let React = require('react');
 let nanoajax = require('nanoajax');
 let Chart = require('./Chart.jsx');
-
+let Card = require('material-ui/lib/card/card');
+let CardMedia = require('material-ui/lib/card/card-media');
+let CardTitle = require('material-ui/lib/card/card-title');
 
 var Projects = React.createClass({
 
@@ -17,10 +19,12 @@ var Projects = React.createClass({
 
   render: function () {
     return (
-      <div>
-        <h1>{this.props.definition.name}</h1>
-        <Chart contributions={this.state}/>
-      </div>
+      <Card>
+        <CardTitle title={this.props.definition.name} subtitle={this.props.definition.description}/>
+        <CardMedia>
+          <Chart contributions={this.state}/>
+        </CardMedia>
+      </Card>
     );
   }
 });

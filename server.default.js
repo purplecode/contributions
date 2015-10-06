@@ -1,6 +1,7 @@
 export const PROJECTS = {
   contributions: {
     name: 'PurpleCode.Contributions',
+    description: "Project contributions stats made with love by PurpleCode",
     repositories: [{
       type: 'git',
       path: '.'
@@ -8,6 +9,7 @@ export const PROJECTS = {
   },
   faces: {
     name: 'PurpleCode.Faces',
+    description: "Peoples' faces learning platform made with love by PurpleCode",
     repositories: [{
       type: 'git',
       path: '../faces'

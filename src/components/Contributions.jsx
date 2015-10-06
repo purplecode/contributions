@@ -44,7 +44,7 @@ var Contributions = React.createClass({
     return (
       <div>
         <Navbar/>
-        <Chart contributions={this.state.total}/>
+        <Project definition={{key: 'total', name: 'Total'}} />
         {
           this.state.projects.map(function (project) {
             return <Project definition={project} />;

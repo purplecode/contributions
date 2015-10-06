@@ -22,15 +22,16 @@ module.exports = (config) => {
     res.send(projects.getProjectDefinitions());
   });
 
-  router.get('/api/v1/contributions/:project', function (req, res) {
-    let projectKey = req.params.project;
-    projects.getProjectContributions(projectKey).then(function (results) {
+  // url looks shitty, but makes frontend code much simpler
+  router.get('/api/v1/contributions/total', function (req, res) {
+    projects.getTotalContributions().then(function (results) {
       res.send(results);
     }).catch(onError(res));
   });
 
-  router.get('/api/v1/contributions', function (req, res) {
-    projects.getTotalContributions().then(function (results) {
+  router.get('/api/v1/contributions/:project', function (req, res) {
+    let projectKey = req.params.project;
+    projects.getProjectContributions(projectKey).then(function (results) {
       res.send(results);
     }).catch(onError(res));
   });
