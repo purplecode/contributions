@@ -17,9 +17,18 @@ export default class Projects {
     });
   }
 
-  getTotalContributions() {
+  getAllContributors() {
+    let repositories = _.flatten(_.pluck(this.projects, 'repositories'));
+    return this._getContributors(repositories);
+  }
+
+  getAllContributions() {
     let repositories = _.flatten(_.pluck(this.projects, 'repositories'));
     return this._getContributions(repositories);
+  }
+
+  getProjectContributors(projectKey) {
+    return this._getContributors(this.projects[projectKey].repositories);
   }
 
   getProjectContributions(projectKey) {
@@ -42,6 +51,20 @@ export default class Projects {
         });
         return memo;
       }, {});
+    });
+  }
+
+  _getContributors(repositories) {
+    let promises = repositories.map((repository)=> {
+      return new GitRepository(repository.path, this.authors).getHistory().then((history) => {
+        return [...history.getContributors()];
+      });
+    });
+    return Promise.all(promises).then((contributors) => {
+      return contributors.reduce((memo, repoContributors) => {
+        _.forEach(repoContributors, memo.add.bind(memo));
+        return memo;
+      }, new Set());
     });
   }
 }

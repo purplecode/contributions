@@ -18,10 +18,15 @@ var Projects = React.createClass({
   },
 
   render: function () {
+
+    let style = {
+      minHeight: '100px'
+    };
+
     return (
       <Card>
         <CardTitle title={this.props.definition.name} subtitle={this.props.definition.description}/>
-        <CardMedia>
+        <CardMedia style={style}>
           <Chart contributions={this.state}/>
         </CardMedia>
       </Card>

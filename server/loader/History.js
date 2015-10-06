@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import moment from 'moment';
 
 export default class History {
@@ -12,6 +13,10 @@ export default class History {
       date: date,
       message: message
     });
+  }
+
+  getContributors() {
+    return new Set(_.pluck(this.data, 'author'));
   }
 
   getMonthlyContributions() {

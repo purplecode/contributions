@@ -8,8 +8,8 @@ export default class ChartView {
   render(model) {
 
     var margin = {top: 20, right: 20, bottom: 60, left: 50},
-      width = 1200 - margin.left - margin.right,
-      height = 700 - margin.top - margin.bottom;
+      width = 1100 - margin.left - margin.right,
+      height = 600 - margin.top - margin.bottom;
 
     var x = d3.time.scale()
       .range([0, width]);

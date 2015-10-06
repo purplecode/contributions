@@ -18,13 +18,20 @@ module.exports = (config) => {
     res.render('index');
   });
 
+  router.get('/api/v1/contributors', function (req, res) {
+    projects.getAllContributors().then(function (results) {
+      res.send(results);
+    }).catch(onError(res));
+  });
+
+
   router.get('/api/v1/projects', function (req, res) {
     res.send(projects.getProjectDefinitions());
   });
 
   // url looks shitty, but makes frontend code much simpler
   router.get('/api/v1/contributions/total', function (req, res) {
-    projects.getTotalContributions().then(function (results) {
+    projects.getAllContributions().then(function (results) {
       res.send(results);
     }).catch(onError(res));
   });

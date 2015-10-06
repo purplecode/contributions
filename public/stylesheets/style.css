@@ -2,13 +2,13 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
 .chart {
@@ -24,4 +24,17 @@ div.tooltip {
     border: 0px;
     border-radius: 5px;
     pointer-events: none;
+}
+
+.content {
+    display: flex;
+    flex-direction: row
+}
+
+.content > .content__right-panel {
+    flex-grow: 4;
+}
+
+.content > .content__left-panel {
+    flex-grow: 4;
 }

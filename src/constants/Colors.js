@@ -20,17 +20,14 @@ let palette = [
   '#5F7C8A'
 ];
 
-export default class ChartColors {
-  constructor() {
-    this.currentIdx = 0;
-    this.cache = {};
-  }
+let cache = {};
+let currentIdx = 0;
 
+export default {
   getColor(key) {
-    if (!this.cache[key]) {
-      this.cache[key] = palette[(this.currentIdx++) % palette.length];
+    if (!cache[key]) {
+      cache[key] = palette[(currentIdx++) % palette.length];
     }
-    return this.cache[key];
+    return cache[key];
   }
-
 }

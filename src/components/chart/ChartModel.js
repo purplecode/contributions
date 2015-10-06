@@ -1,8 +1,6 @@
 let _ = require('lodash');
 let d3 = require('d3');
-let ChartColors = require('./ChartColors');
-
-let colors = new ChartColors();
+let Colors = require('../../constants/Colors');
 
 export default class ChartModel {
   constructor(contributions) {
@@ -37,7 +35,7 @@ export default class ChartModel {
   }
 
   getColor(name) {
-    return colors.getColor(name);
+    return Colors.getColor(name);
   }
 
   getSeriesNames() {
