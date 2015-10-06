@@ -1,7 +1,8 @@
 let _ = require('lodash');
 let d3 = require('d3');
+let ChartColors = require('./ChartColors');
 
-let color = d3.scale.category20();
+let colors = new ChartColors();
 
 export default class ChartModel {
   constructor(contributions) {
@@ -36,29 +37,7 @@ export default class ChartModel {
   }
 
   getColor(name) {
-    let palette = [
-      '#F34235',
-      '#E81D62',
-      '#9B26AF',
-      '#6639B6',
-      '#3E50B4',
-      '#2095F2',
-      '#009587',
-      '#00BBD3',
-      '#02A8F3',
-      '#4BAE4F',
-      '#8AC249',
-      '#CCDB38',
-      '#FEEA3A',
-      '#FEC006',
-      '#FE9700',
-      '#FE5621',
-      '#785447',
-      '#9D9D9D',
-      '#5F7C8A'
-    ];
-    let idx = this.getSeriesNames().indexOf(name);
-    return palette[idx % palette.length];
+    return colors.getColor(name);
   }
 
   getSeriesNames() {
