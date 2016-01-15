@@ -1,7 +1,7 @@
 contributions
 =====================
 
-*under construction*
+Shows git project contributions in a form of stacked area chart. Each project separately and total summary.
 
 
 Usage
