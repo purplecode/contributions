@@ -12,7 +12,7 @@ git clone https://github.com/purplecode/contributions.git myapp
 cd myapp
 npm install
 npm run build
-npm run server
+node server/www -c ./your.server.config // see server.default example
 open http://localhost:3000
 ```
 Use `npm start` to run webpack watch.
