@@ -1,11 +1,11 @@
-let React = require('react');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 require("react-tap-event-plugin")();
-require("font-awesome-webpack");
 
 var Contributions = require('./components/Contributions.jsx');
 
-React.render(
+ReactDOM.render(
   <Contributions/>,
   document.getElementById("react-container")
 );

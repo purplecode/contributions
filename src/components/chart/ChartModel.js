@@ -1,6 +1,6 @@
-let _ = require('lodash');
-let d3 = require('d3');
-let Colors = require('../../constants/Colors');
+import _ from 'lodash';
+import d3 from 'd3';
+import Colors from '../../constants/Colors';
 
 export default class ChartModel {
   constructor(contributions) {

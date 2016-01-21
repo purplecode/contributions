@@ -1,9 +1,9 @@
-let _ = require('lodash');
-let d3 = require('d3');
-let React = require('react');
-let LinearProgress = require('material-ui/lib/linear-progress');
-let ChartModel = require('./chart/ChartModel');
-let ChartView = require('./chart/ChartView');
+import _ from 'lodash';
+import d3 from 'd3';
+import React from 'react';
+import LinearProgress from 'material-ui/lib/linear-progress';
+import ChartModel from './chart/ChartModel';
+import ChartView from './chart/ChartView';
 
 class Chart extends React.Component {
 

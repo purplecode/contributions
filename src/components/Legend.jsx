@@ -1,55 +1,55 @@
-let _ = require('lodash');
-let React = require('react');
-let nanoajax = require('nanoajax');
-let Avatar = require('material-ui/lib/avatar');
-let Card = require('material-ui/lib/card/card');
-let CardMedia = require('material-ui/lib/card/card-media');
-let CardHeader = require('material-ui/lib/card/card-header');
-let CardTitle = require('material-ui/lib/card/card-title');
-let Colors = require('../constants/Colors');
+import _ from 'lodash';
+import React from 'react';
+import nanoajax from 'nanoajax';
+import Avatar from 'material-ui/lib/avatar';
+import Card from 'material-ui/lib/card/card';
+import CardMedia from 'material-ui/lib/card/card-media';
+import CardHeader from 'material-ui/lib/card/card-header';
+import CardTitle from 'material-ui/lib/card/card-title';
+import Colors from '../constants/Colors';
 
 class Legend extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      contributors: []
-    };
-  }
+    constructor(props) {
+        super(props);
 
-  componentDidMount() {
-    nanoajax.ajax('/api/v1/contributors', (code, results) => {
-      this.setState({contributors: JSON.parse(results).sort()});
-    });
-  }
+        this.state = {
+            contributors: []
+        };
 
-  render() {
+        nanoajax.ajax({url: '/api/v1/contributors'}, (code, results) => {
+            console.log(results);
+            this.setState({contributors: JSON.parse(results).sort()});
+        });
+    }
 
-    let extractTitle = (contributor) => {
-      contributor = contributor.split('@')[0];
-      contributor = contributor.replace(/[\._]/g, ' ');
-      return contributor.replace(/\w\S*/g, function (text) {
-        return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
-      });
-    };
+    render() {
 
-    return (
-      <div>
-        {
-          this.state.contributors.map(function (contributor) {
-            return <div>
-              <Card>
-                <CardHeader
-                  title={extractTitle(contributor)}
-                  subtitle={contributor}
-                  avatar={<Avatar backgroundColor={Colors.getColor(contributor)}></Avatar>}/>
-              </Card>
+        let extractTitle = (contributor) => {
+            contributor = contributor.split('@')[0];
+            contributor = contributor.replace(/[\._]/g, ' ');
+            return contributor.replace(/\w\S*/g, function (text) {
+                return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+            });
+        };
+
+        return (
+            <div>
+                {
+                    this.state.contributors.map(function (contributor) {
+                        return <div>
+                            <Card>
+                                <CardHeader
+                                    title={extractTitle(contributor)}
+                                    subtitle={contributor}
+                                    avatar={<Avatar backgroundColor={Colors.getColor(contributor)}></Avatar>}/>
+                            </Card>
+                        </div>
+                    })
+                }
             </div>
-          })
-        }
-      </div>
-    )
-  }
+        )
+    }
 }
 
 module.exports = Legend;

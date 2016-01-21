@@ -1,9 +1,9 @@
-let React = require('react');
-const AppBar = require('material-ui/lib/app-bar');
-const FontIcon = require('material-ui/lib/font-icon');
-const FlatButton = require('material-ui/lib/flat-button');
-const IconButton = require('material-ui/lib/icon-button');
-const FontAwesome = require('react-fontawesome');
+import React from 'react';
+import AppBar from 'material-ui/lib/app-bar';
+import FontIcon from 'material-ui/lib/font-icon';
+import FlatButton from 'material-ui/lib/flat-button';
+import IconButton from 'material-ui/lib/icon-button';
+import FontAwesome from 'react-fontawesome';
 
 
 class Navbar extends React.Component {

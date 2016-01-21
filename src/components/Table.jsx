@@ -1,11 +1,11 @@
-const React = require('react');
-const Table = require('material-ui/lib/table/table');
-const TableHeader = require('material-ui/lib/table/table-header');
-const TableRow = require('material-ui/lib/table/table-row');
-const TableRowColumn = require('material-ui/lib/table/table-row-column');
-const TableHeaderColumn = require('material-ui/lib/table/table-header-column');
-const TableBody = require('material-ui/lib/table/table-body');
-const TableFooter = require('material-ui/lib/table/table-footer');
+import React from 'react';
+import Table from 'material-ui/lib/table/table';
+import TableHeader from 'material-ui/lib/table/table-header';
+import TableRow from 'material-ui/lib/table/table-row';
+import TableRowColumn from 'material-ui/lib/table/table-row-column';
+import TableHeaderColumn from 'material-ui/lib/table/table-header-column';
+import TableBody from 'material-ui/lib/table/table-body';
+import TableFooter from 'material-ui/lib/table/table-footer';
 
 let getAllDates = (contributions) => {
   let distinct = _.values(contributions).reduce((memo, item) => {
@@ -64,10 +64,10 @@ class TableComponent extends React.Component {
           {
             contributors.map(function (contributor) {
               return <TableRow>
-                <TableHeaderColumn tooltip={contributor}>{contributor}</TableHeaderColumn>
+                <TableHeaderColumn key={contributor} tooltip={contributor}>{contributor}</TableHeaderColumn>
                 {
                   dates.map(function (date) {
-                    return <TableHeaderColumn tooltip={date}>{contributions[contributor][date] || '-'}</TableHeaderColumn>
+                    return <TableHeaderColumn key={`${contributor}`} tooltip={date}>{contributions[contributor][date] || '-'}</TableHeaderColumn>
                   })
                 }
               </TableRow>
@@ -77,43 +77,6 @@ class TableComponent extends React.Component {
       </Table>
 
     );
-
-    //return (
-    //  <table>
-    //    {
-    //      Object.keys(contributions).map(function (user) {
-    //        return <tbody>
-    //        <tr>
-    //          <th colspan="2">{user}</th>
-    //        </tr>
-    //        <tr>
-    //          {
-    //            Object.keys(contributions[user]).map(function (date) {
-    //              return <tr>
-    //                <td>{date}</td>
-    //                <td>{contributions[user][date]}</td>
-    //              </tr>;
-    //            })
-    //          }
-    //        </tr>
-    //        </tbody>
-    //      }.bind(this))
-    //    }
-    //  </table>
-    //);
-
-    //{
-    //  contributors.map(function (user) {
-    //    return <TableRow>
-    //      <TableHeaderColumn>{user}</TableHeaderColumn>
-    //      {
-    //        dates.map(function (date) {
-    //          return <TableRowColumn>{contributions[user][date] || '-'}</TableRowColumn>;
-    //        })
-    //      }
-    //    </TableRow>
-    //  }.bind(this))
-    //}
   }
 }
 

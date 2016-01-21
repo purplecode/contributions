@@ -16,7 +16,7 @@ export default class History {
   }
 
   getContributors() {
-    return new Set(_.pluck(this.data, 'author'));
+    return new Set(_.map(this.data, 'author'));
   }
 
   getMonthlyContributions() {

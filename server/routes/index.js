@@ -1,5 +1,5 @@
 import express from 'express';
-import Projects from '../loader/Projects'
+import Projects from '../loader/Projects';
 
 let onError = (res) => {
   return (e) => {
