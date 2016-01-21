@@ -12,7 +12,7 @@ export const PROJECTS = {
     description: "Peoples' faces learning platform made with love by PurpleCode",
     repositories: [{
       type: 'git',
-      path: '../faces'
+      path: '../material-ui'
     }]
   }
 };
