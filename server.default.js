@@ -6,14 +6,6 @@ export const PROJECTS = {
       type: 'git',
       path: '.'
     }]
-  },
-  faces: {
-    name: 'PurpleCode.Faces',
-    description: "Peoples' faces learning platform made with love by PurpleCode",
-    repositories: [{
-      type: 'git',
-      path: '../material-ui'
-    }]
   }
 };
 
