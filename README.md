@@ -17,7 +17,7 @@ open http://localhost:3000
 ```
 Use `npm start` to run webpack watch.
 
-In case of any problems with nodegit installation, check the package documentation.
+In case of any problems with nodegit installation or problems with libstdc library, check the [package documentation](https://github.com/nodegit/nodegit).
 
 License
 =======
