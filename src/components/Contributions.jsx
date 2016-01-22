@@ -1,42 +1,32 @@
 import React from 'react';
 import nanoajax from 'nanoajax';
 import mui from 'material-ui';
-import Table from './Table.jsx';
 import Chart from './Chart.jsx';
 import Navbar from './Navbar.jsx';
 import Project from './Project.jsx';
 import Legend from './Legend.jsx';
 
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
+import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
 import Theme from './Theme';
 
-var Contributions = React.createClass({
+@ThemeDecorator(ThemeManager.getMuiTheme(Theme))
+class Contributions extends React.Component {
 
-    childContextTypes: {
-        muiTheme: React.PropTypes.object
-    },
+    constructor(props) {
+        super(props);
 
-    getChildContext() {
-        return {
-            muiTheme: ThemeManager.getMuiTheme(Theme)
-        };
-    },
-
-    getInitialState: function () {
-
-        nanoajax.ajax({url: '/api/v1/projects'}, (code, results) => {
-            if (this.isMounted()) {
-                this.setState({projects: JSON.parse(results)});
-            }
-        });
-
-        return {
+        this.state = {
             total: {},
             projects: []
         };
-    },
 
-    render: function () {
+        nanoajax.ajax({url: '/api/v1/projects'}, (code, results) => {
+            this.setState({projects: JSON.parse(results)});
+        });
+    }
+
+    render() {
         return (
             <div>
                 <Navbar/>
@@ -56,9 +46,7 @@ var Contributions = React.createClass({
             </div>
         );
     }
-});
+}
 
-module.exports = Contributions;
-
-
+export default Contributions;
 

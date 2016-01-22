@@ -18,7 +18,6 @@ class Legend extends React.Component {
         };
 
         nanoajax.ajax({url: '/api/v1/contributors'}, (code, results) => {
-            console.log(results);
             this.setState({contributors: JSON.parse(results).sort()});
         });
     }
@@ -37,7 +36,7 @@ class Legend extends React.Component {
             <div>
                 {
                     this.state.contributors.map(function (contributor) {
-                        return <div>
+                        return <div key={contributor}>
                             <Card>
                                 <CardHeader
                                     title={extractTitle(contributor)}

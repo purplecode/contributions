@@ -5,19 +5,19 @@ import Card from 'material-ui/lib/card/card';
 import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
 
-var Projects = React.createClass({
+class Project extends React.Component {
 
-    getInitialState: function () {
-        return {};
-    },
+    constructor(props) {
+        super(props);
 
-    componentDidMount: function () {
+        this.state = {};
+
         nanoajax.ajax({url: `/api/v1/contributions/${this.props.definition.key}`}, (code, results) => {
             this.setState(JSON.parse(results));
         });
-    },
+    }
 
-    render: function () {
+    render() {
 
         let style = {
             minHeight: '100px'
@@ -32,9 +32,9 @@ var Projects = React.createClass({
             </Card>
         );
     }
-});
+}
 
-module.exports = Projects;
+module.exports = Project;
 
 
 
