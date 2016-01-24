@@ -6,7 +6,7 @@ import Card from 'material-ui/lib/card/card';
 import CardMedia from 'material-ui/lib/card/card-media';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardTitle from 'material-ui/lib/card/card-title';
-import Colors from '../constants/Colors';
+import Colors from '../styles/Colors';
 
 class Legend extends React.Component {
 

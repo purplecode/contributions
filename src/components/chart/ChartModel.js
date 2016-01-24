@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import d3 from 'd3';
-import Colors from '../../constants/Colors';
+import Colors from '../../styles/Colors';
 
 export default class ChartModel {
   constructor(contributions) {

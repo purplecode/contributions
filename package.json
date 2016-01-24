@@ -10,6 +10,7 @@
     "express": "4.12.3",
     "font-awesome": "4.5.0",
     "jade": "1.9.2",
+    "keymirror": "^0.1.1",
     "lodash": "4.0.0",
     "material-ui": "0.14.2",
     "moment": "2.11.1",
@@ -19,7 +20,11 @@
     "react": "0.14.6",
     "react-dom": "0.14.6",
     "react-fontawesome": "0.3.3",
+    "react-redux": "^4.0.6",
     "react-tap-event-plugin": "0.2.1",
+    "redux": "^3.0.5",
+    "redux-logger": "^2.4.0",
+    "redux-thunk": "^1.0.3",
     "static-favicon": "1.0.0"
   },
   "devDependencies": {

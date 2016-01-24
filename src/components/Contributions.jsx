@@ -8,7 +8,7 @@ import Legend from './Legend.jsx';
 
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
-import Theme from './Theme';
+import Theme from '../styles/Theme';
 
 @ThemeDecorator(ThemeManager.getMuiTheme(Theme))
 class Contributions extends React.Component {
