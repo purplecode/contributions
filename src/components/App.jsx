@@ -5,25 +5,27 @@ import Chart from './Chart.jsx';
 import Navbar from './Navbar.jsx';
 import Project from './Project.jsx';
 import Legend from './Legend.jsx';
-
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
 import Theme from '../styles/Theme';
+import store from '../stores/store';
+import actions from '../stores/actions';
 
 @ThemeDecorator(ThemeManager.getMuiTheme(Theme))
-class Contributions extends React.Component {
+class App extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            total: {},
             projects: []
         };
 
-        nanoajax.ajax({url: '/api/v1/projects'}, (code, results) => {
-            this.setState({projects: JSON.parse(results)});
-        });
+        store.dispatch(actions.getProjects()).then(() => {
+                let projects = store.getState().projects.projects;
+                this.setState({projects: projects});
+            }
+        );
     }
 
     render() {
@@ -48,5 +50,5 @@ class Contributions extends React.Component {
     }
 }
 
-export default Contributions;
+export default App;
 
