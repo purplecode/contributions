@@ -8,7 +8,7 @@ import CardHeader from 'material-ui/lib/card/card-header';
 import CardTitle from 'material-ui/lib/card/card-title';
 import Colors from '../styles/Colors';
 import store from '../stores/store';
-import actions from '../stores/actions';
+import Contributors from '../stores/Contributors';
 
 
 class Legend extends React.Component {
@@ -20,7 +20,7 @@ class Legend extends React.Component {
             contributors: []
         };
 
-        store.dispatch(actions.getContributors()).then(() => {
+        store.dispatch(Contributors.getContributors()).then(() => {
                 let contributors = store.getState().contributors.model;
                 this.setState({contributors: contributors});
             }

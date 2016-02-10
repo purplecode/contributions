@@ -5,7 +5,7 @@ import Card from 'material-ui/lib/card/card';
 import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
 import store from '../stores/store';
-import actions from '../stores/actions';
+import Contributions from '../stores/Contributions';
 
 class Project extends React.Component {
 
@@ -14,7 +14,7 @@ class Project extends React.Component {
 
         this.state = {};
 
-        store.dispatch(actions.getContributions(this.props.definition.key)).then(() => {
+        store.dispatch(Contributions.getContributions(this.props.definition.key)).then(() => {
                 let contributions = store.getState().contributions[this.props.definition.key].model;
                 this.setState(contributions);
             }

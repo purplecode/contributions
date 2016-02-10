@@ -9,7 +9,7 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
 import Theme from '../styles/Theme';
 import store from '../stores/store';
-import actions from '../stores/actions';
+import Projects from '../stores/Projects';
 
 @ThemeDecorator(ThemeManager.getMuiTheme(Theme))
 class App extends React.Component {
@@ -21,7 +21,8 @@ class App extends React.Component {
             projects: []
         };
 
-        store.dispatch(actions.getProjects()).then(() => {
+        store.dispatch(Projects.getProjects()).then(() => {
+            console.log(store.getState())
                 let projects = store.getState().projects.model;
                 this.setState({projects: projects});
             }
