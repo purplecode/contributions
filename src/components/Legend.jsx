@@ -7,6 +7,9 @@ import CardMedia from 'material-ui/lib/card/card-media';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardTitle from 'material-ui/lib/card/card-title';
 import Colors from '../styles/Colors';
+import store from '../stores/store';
+import actions from '../stores/actions';
+
 
 class Legend extends React.Component {
 
@@ -17,9 +20,12 @@ class Legend extends React.Component {
             contributors: []
         };
 
-        nanoajax.ajax({url: '/api/v1/contributors'}, (code, results) => {
-            this.setState({contributors: JSON.parse(results).sort()});
-        });
+        store.dispatch(actions.getContributors()).then(() => {
+                let contributors = store.getState().contributors.model;
+                this.setState({contributors: contributors});
+            }
+        );
+
     }
 
     render() {

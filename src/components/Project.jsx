@@ -4,6 +4,8 @@ import Chart from './Chart.jsx';
 import Card from 'material-ui/lib/card/card';
 import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
+import store from '../stores/store';
+import actions from '../stores/actions';
 
 class Project extends React.Component {
 
@@ -12,9 +14,12 @@ class Project extends React.Component {
 
         this.state = {};
 
-        nanoajax.ajax({url: `/api/v1/contributions/${this.props.definition.key}`}, (code, results) => {
-            this.setState(JSON.parse(results));
-        });
+        store.dispatch(actions.getContributions(this.props.definition.key)).then(() => {
+                let contributions = store.getState().contributions[this.props.definition.key].model;
+                this.setState(contributions);
+            }
+        );
+
     }
 
     render() {

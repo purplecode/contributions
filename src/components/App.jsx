@@ -22,7 +22,7 @@ class App extends React.Component {
         };
 
         store.dispatch(actions.getProjects()).then(() => {
-                let projects = store.getState().projects.projects;
+                let projects = store.getState().projects.model;
                 this.setState({projects: projects});
             }
         );
