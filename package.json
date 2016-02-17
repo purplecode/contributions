@@ -39,6 +39,7 @@
     "file-loader": "0.8.5",
     "less": "2.5.3",
     "less-loader": "2.2.2",
+    "react-styleable": "^2.2.3",
     "style-loader": "0.13.0",
     "webpack": "1.12.11"
   },

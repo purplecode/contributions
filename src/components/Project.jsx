@@ -1,5 +1,5 @@
 import React from 'react';
-import nanoajax from 'nanoajax';
+import styleable from 'react-styleable';
 import Chart from './Chart.jsx';
 import Card from 'material-ui/lib/card/card';
 import CardMedia from 'material-ui/lib/card/card-media';
@@ -7,6 +7,11 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import store from '../stores/store';
 import Contributions from '../stores/Contributions';
 
+import css from './project.css';
+
+console.log('css', css);
+
+@styleable(css)
 class Project extends React.Component {
 
     constructor(props) {
@@ -16,23 +21,18 @@ class Project extends React.Component {
 
         store.dispatch(Contributions.getContributions(this.props.definition.key)).then(() => {
                 let contributions = store.getState().contributions[this.props.definition.key].model;
-                this.setState(contributions);
+                this.setState({contributions: contributions});
             }
         );
 
     }
 
     render() {
-
-        let style = {
-            minHeight: '100px'
-        };
-
         return (
             <Card>
                 <CardTitle title={this.props.definition.name} subtitle={this.props.definition.description}/>
-                <CardMedia style={style}>
-                    <Chart contributions={this.state}/>
+                <CardMedia className={this.props.css.cardMedia}>
+                    <Chart contributions={this.state.contributions}/>
                 </CardMedia>
             </Card>
         );

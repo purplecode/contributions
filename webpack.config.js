@@ -13,8 +13,11 @@ module.exports = {
         loaders: [
             {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader'},
             {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'},
-            {test: /\.less/, loader: "style!css!less"},
-            {test: /\.css/, loader: "style!css"},
+            {
+                test: /\.css$/,
+                exclude: /font-awesome|index/,
+                loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+            },
             {
                 test: /\.(js|jsx)$/,
                 loader: 'babel-loader',

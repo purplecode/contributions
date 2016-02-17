@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import ToggleLeftNav from 'material-ui/lib/svg-icons/action/view-headline';
 import Filtering from './Filtering.jsx';
 
+
 class Navbar extends React.Component {
 
     constructor(props) {
