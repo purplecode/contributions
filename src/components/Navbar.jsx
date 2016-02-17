@@ -8,7 +8,7 @@ import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import RaisedButton from 'material-ui/lib/raised-button';
 import ToggleLeftNav from 'material-ui/lib/svg-icons/action/view-headline';
-
+import Filtering from './Filtering.jsx';
 
 class Navbar extends React.Component {
 
@@ -43,14 +43,13 @@ class Navbar extends React.Component {
                     iconElementLeft={leftElement}
                     iconElementRight={rightElement}
                 />
-                <LeftNav docked={false} open={this.state.open} onRequestChange={open => this.setState({open})}>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item 2</MenuItem>
+                <LeftNav width={600} docked={false} open={this.state.open} onRequestChange={open => this.setState({open})}>
+                    <Filtering/>
                 </LeftNav>
             </div>
         )
     }
 }
 
-module.exports = Navbar;
+export default Navbar;
 

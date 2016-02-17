@@ -43,7 +43,7 @@ const Reducer = function (state = {
         case Constants.RECEIVE_CONTRIBUTORS:
             return Object.assign({}, state, {
                 isFetching: false,
-                model: action.contributors,
+                model: _.sortBy(action.contributors, c => c.toLowerCase()),
                 lastUpdated: action.receivedAt
             });
         default:

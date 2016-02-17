@@ -20,7 +20,10 @@ export default class GitRepository {
 
           logs.on("commit", (commit) => {
             let author = this.authors.getId(commit.author().name(), commit.author().email());
-            history.addCommit(commit.sha(), author, new Date(commit.date()), commit.message());
+            let commitDate = new Date(commit.date());
+            if(commitDate > new Date(new Date().getTime() - 1000*60*60*24*365)) {
+              history.addCommit(commit.sha(), author, commitDate, commit.message());
+            }
           });
 
           logs.on('end', ()  => {
