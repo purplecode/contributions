@@ -33,6 +33,10 @@ class Filtering extends React.Component {
         );
     }
 
+    onRowSelection(selections) {
+        console.log(selections);
+    }
+
     render() {
 
         let extractTitle = (contributor) => {
@@ -47,6 +51,7 @@ class Filtering extends React.Component {
             <Table
                 multiSelectable={true}
                 allRowsSelected={true}
+                onRowSelection={this.onRowSelection.bind(this)}
             >
                 <TableHeader>
                     <TableRow>
