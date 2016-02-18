@@ -57,11 +57,11 @@ export default {
     getContributors() {
         return (dispatch, getState) => {
             let state = getState().contributors;
-            if (_.isEmpty(state.model) && !state.isFetching) {
-                return dispatch(Actions.fetchContributors())
-            } else {
-                return Promise.resolve()
-            }
+            let shouldFetch = _.isEmpty(state.model) && !state.isFetching;
+            let promise = shouldFetch ? dispatch(Actions.fetchContributors()) : Promise.resolve();
+            return promise.then(() => {
+                return getState().contributors.model;
+            });
         }
     }
 };

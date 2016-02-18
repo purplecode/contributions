@@ -57,11 +57,11 @@ export default {
     getProjects() {
         return (dispatch, getState) => {
             let state = getState().projects;
-            if (_.isEmpty(state.model) && !state.isFetching) {
-                return dispatch(Actions.fetchProjects())
-            } else {
-                return Promise.resolve()
-            }
+            let shouldFetch = _.isEmpty(state.model) && !state.isFetching;
+            let promise = shouldFetch ? dispatch(Actions.fetchProjects()) : Promise.resolve();
+            return promise.then(() => {
+                return getState().projects.model;
+            });
         }
     }
 };

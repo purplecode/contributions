@@ -62,11 +62,11 @@ export default {
     getContributions(projectKey) {
         return (dispatch, getState) => {
             let state = getState().contributions[projectKey];
-            if (!state || (_.isEmpty(state.model) && !state.isFetching)) {
-                return dispatch(Actions.fetchContributions(projectKey));
-            } else {
-                return Promise.resolve()
-            }
+            let shouldFetch = (!state || (_.isEmpty(state.model) && !state.isFetching));
+            let promise = shouldFetch ? dispatch(Actions.fetchContributions(projectKey)) : Promise.resolve();
+            return promise.then(() => {
+                return getState().contributions[projectKey].model;
+            });
         }
     }
 };

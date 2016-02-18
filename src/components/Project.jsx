@@ -19,8 +19,7 @@ class Project extends React.Component {
 
         this.state = {};
 
-        store.dispatch(Contributions.getContributions(this.props.definition.key)).then(() => {
-                let contributions = store.getState().contributions[this.props.definition.key].model;
+        store.dispatch(Contributions.getContributions(this.props.definition.key)).then((contributions) => {
                 this.setState({contributions: contributions});
             }
         );

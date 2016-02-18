@@ -26,8 +26,7 @@ class Filtering extends React.Component {
             contributors: []
         };
 
-        store.dispatch(Contributors.getContributors()).then(() => {
-                let contributors = store.getState().contributors.model;
+        store.dispatch(Contributors.getContributors()).then((contributors) => {
                 this.setState({contributors: contributors});
             }
         );

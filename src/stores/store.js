@@ -8,7 +8,7 @@ const loggerMiddleware = Logger();
 
 const createStoreWithMiddleware = applyMiddleware(
     ThunkMiddleware,
-    //loggerMiddleware
+    loggerMiddleware
 )(createStore);
 
 export default createStoreWithMiddleware(reducers);

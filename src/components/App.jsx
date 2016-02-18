@@ -23,8 +23,7 @@ class App extends React.Component {
             projects: []
         };
 
-        store.dispatch(Projects.getProjects()).then(() => {
-                let projects = store.getState().projects.model;
+        store.dispatch(Projects.getProjects()).then((projects) => {
                 this.setState({projects: projects});
             }
         );
