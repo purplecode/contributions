@@ -24,6 +24,11 @@ export default {
             type: Constants.FILTER_BY_CONTRIBUTORS,
             contributors
         };
+    },
+    getSelectedContributors() {
+        return (dispatch, getState) => {
+            return Promise.resolve(getState().filtering);
+        }
     }
 };
 

@@ -65,7 +65,8 @@ export default {
             let shouldFetch = (!state || (_.isEmpty(state.model) && !state.isFetching));
             let promise = shouldFetch ? dispatch(Actions.fetchContributions(projectKey)) : Promise.resolve();
             return promise.then(() => {
-                return getState().contributions[projectKey].model;
+                let contributions = getState().contributions[projectKey].model;
+                return getState().filtering === 'ALL' ? contributions : _.pick(contributions, getState().filtering);
             });
         }
     }

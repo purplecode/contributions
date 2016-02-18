@@ -19,11 +19,16 @@ class Project extends React.Component {
 
         this.state = {};
 
-        store.dispatch(Contributions.getContributions(this.props.definition.key)).then((contributions) => {
-                this.setState({contributions: contributions});
-            }
-        );
+        let reload = () => {
+            store.dispatch(Contributions.getContributions(this.props.definition.key)).then((contributions) => {
+                    this.setState({contributions: contributions});
+                }
+            );
+        };
 
+        store.subscribe(reload);
+
+        reload();
     }
 
     render() {

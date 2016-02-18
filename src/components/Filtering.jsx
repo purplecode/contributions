@@ -15,6 +15,8 @@ import TableRowColumn from 'material-ui/lib/table/table-row-column';
 import TableBody from 'material-ui/lib/table/table-body';
 import store from '../stores/store';
 import Contributors from '../stores/Contributors';
+import FilteringStore from '../stores/Filtering';
+import {Constants as FilteringConstants} from '../stores/Filtering';
 
 
 class Filtering extends React.Component {
@@ -23,17 +25,34 @@ class Filtering extends React.Component {
         super(props);
 
         this.state = {
-            contributors: []
+            contributors: [],
+            selected: []
         };
 
         store.dispatch(Contributors.getContributors()).then((contributors) => {
-                this.setState({contributors: contributors});
+                this.setState({
+                    contributors: contributors
+                });
             }
         );
+
+        let reload = () => {
+            store.dispatch(FilteringStore.getSelectedContributors()).then((contributors) => {
+                    this.setState({
+                        selected: contributors
+                    });
+                }
+            );
+        };
+        store.subscribe(reload);
+        reload();
     }
 
     onRowSelection(selections) {
-        console.log(selections);
+        let contributors = (selections === 'all') ? FilteringConstants.ALL : (selections === 'none' ? [] : selections.map(selection => {
+            return this.state.contributors[selection];
+        }));
+        store.dispatch(FilteringStore.filterByContributors(contributors));
     }
 
     render() {
@@ -49,20 +68,24 @@ class Filtering extends React.Component {
         return (
             <Table
                 multiSelectable={true}
-                allRowsSelected={true}
+                allRowsSelected={this.state.selected === FilteringConstants.ALL}
                 onRowSelection={this.onRowSelection.bind(this)}
             >
-                <TableHeader>
+                <TableHeader selectAllSelected={this.state.selected === FilteringConstants.ALL}>
                     <TableRow>
                         <TableHeaderColumn width={20}></TableHeaderColumn>
                         <TableHeaderColumn>Name</TableHeaderColumn>
                         <TableHeaderColumn>Email</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody deselectOnClickaway={false}>
                     {
-                        this.state.contributors.map(function (contributor) {
-                            return <TableRow key={contributor}>
+                        this.state.contributors.map((contributor) => {
+                            let selected = this.state.selected.indexOf(contributor) > -1 || this.state.selected === FilteringConstants.ALL;
+                            return <TableRow
+                                key={contributor}
+                                selected={selected}
+                            >
                                 <TableRowColumn width={20}>
                                     <Avatar size={20} backgroundColor={Colors.getColor(contributor)}></Avatar>
                                 </TableRowColumn>
