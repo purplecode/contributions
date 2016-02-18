@@ -3,7 +3,6 @@ import mui from 'material-ui';
 import Chart from './Chart.jsx';
 import Navbar from './Navbar.jsx';
 import Project from './Project.jsx';
-import Legend from './Legend.jsx';
 import styleable from 'react-styleable';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';

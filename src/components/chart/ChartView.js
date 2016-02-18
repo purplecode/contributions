@@ -8,8 +8,10 @@ export default class ChartView {
 
     render(model) {
 
-        var margin = {top: 20, right: 20, bottom: 60, left: 50},
-            width = 1100 - margin.left - margin.right,
+        var parentWidth = parseInt(d3.select(this.element).style('width'), 10);
+
+        var margin = {top: 20, right: 70, bottom: 60, left: 100},
+            width = parentWidth - margin.left - margin.right,
             height = 600 - margin.top - margin.bottom;
 
         var x = d3.time.scale()
@@ -32,13 +34,15 @@ export default class ChartView {
                 return x(d.date);
             })
             .y0(function (d) {
-                return y(0 + d.y0);
+                return y(d.y0);
             })
             .y1(function (d) {
-                return y(0 + d.y);
+                return y(d.y);
             });
 
         d3.select(this.element).select("svg").remove();
+
+        d3.select(window).on(`resize.${model.getProjectKey()}`, this.render.bind(this, model));
 
         var svg = d3.select(this.element).append("svg")
             .attr("width", width + margin.left + margin.right)

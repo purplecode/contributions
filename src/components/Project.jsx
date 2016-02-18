@@ -32,7 +32,7 @@ class Project extends React.Component {
             <Card>
                 <CardTitle title={this.props.definition.name} subtitle={this.props.definition.description}/>
                 <CardMedia className={this.props.css.cardMedia}>
-                    <Chart contributions={this.state.contributions}/>
+                    <Chart projectKey={this.props.definition.key} contributions={this.state.contributions}/>
                 </CardMedia>
             </Card>
         );
