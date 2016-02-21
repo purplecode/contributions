@@ -9,6 +9,6 @@ require("react-tap-event-plugin")();
 
 
 ReactDOM.render(
-    <App/>,
+    <App />,
     document.getElementById("react-container")
 );

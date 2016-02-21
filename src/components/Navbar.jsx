@@ -30,7 +30,7 @@ class Navbar extends React.Component {
 
         let rightElement = (
             <IconButton
-                linkButton={true}
+                linkButton
                 href="https://github.com/purplecode/contributions"
             >
                 <FontIcon className="fa fa-github"/>

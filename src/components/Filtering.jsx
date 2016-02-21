@@ -69,7 +69,7 @@ class Filtering extends React.Component {
 
         return (
             <Table
-                multiSelectable={true}
+                multiSelectable
                 onRowSelection={this.onRowSelection}
             >
                 <TableHeader selectAllSelected={this.state.selected === FilteringConstants.ALL}>
@@ -83,16 +83,18 @@ class Filtering extends React.Component {
                     {
                         this.state.contributors.map((contributor) => {
                             let selected = this.state.selected.indexOf(contributor) > -1 || this.state.selected === FilteringConstants.ALL;
-                            return (<TableRow
-                                key={contributor}
-                                selected={selected}
-                            >
-                                <TableRowColumn width={20}>
-                                    <Avatar size={20} backgroundColor={Colors.getColor(contributor)}/>
-                                </TableRowColumn>
-                                <TableRowColumn>{extractTitle(contributor)}</TableRowColumn>
-                                <TableRowColumn>{contributor}</TableRowColumn>
-                            </TableRow>)
+                            return (
+                                <TableRow
+                                    key={contributor}
+                                    selected={selected}
+                                >
+                                    <TableRowColumn width={20}>
+                                        <Avatar size={20} backgroundColor={Colors.getColor(contributor)}/>
+                                    </TableRowColumn>
+                                    <TableRowColumn>{extractTitle(contributor)}</TableRowColumn>
+                                    <TableRowColumn>{contributor}</TableRowColumn>
+                                </TableRow>
+                            )
                         })
                     }
                 </TableBody>
