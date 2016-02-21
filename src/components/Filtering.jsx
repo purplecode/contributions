@@ -68,7 +68,6 @@ class Filtering extends React.Component {
         return (
             <Table
                 multiSelectable={true}
-                allRowsSelected={this.state.selected === FilteringConstants.ALL}
                 onRowSelection={this.onRowSelection.bind(this)}
             >
                 <TableHeader selectAllSelected={this.state.selected === FilteringConstants.ALL}>
