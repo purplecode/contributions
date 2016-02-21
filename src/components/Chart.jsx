@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import d3 from 'd3';
 import styleable from 'react-styleable';
-import React from 'react';
+import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import LinearProgress from 'material-ui/lib/linear-progress';
 import ChartModel from './chart/ChartModel';
@@ -12,19 +12,25 @@ import css from './chart.css';
 @styleable(css)
 class Chart extends React.Component {
 
-  componentDidUpdate() {
-      if(!_.isEmpty(this.props.contributions) && this.refs.chartContainer) {
-          var element = ReactDOM.findDOMNode(this.refs.chartContainer);
-          let model = new ChartModel(this.props.projectKey, this.props.contributions)
-          new ChartView(element, this.props.css).render(model);
-      }
-  }
+    static propTypes = {
+        css: PropTypes.object,
+        projectKey: PropTypes.string,
+        contributions: PropTypes.object
+    };
 
-  render() {
-    return (
-      <div className={this.props.css.chart} ref="chartContainer"/>
-    )
-  }
+    componentDidUpdate() {
+        if (!_.isEmpty(this.props.contributions) && this.chart) {
+            var element = ReactDOM.findDOMNode(this.chart);
+            let model = new ChartModel(this.props.projectKey, this.props.contributions)
+            new ChartView(element, this.props.css).render(model);
+        }
+    }
+
+    render() {
+        return (
+            <div className={this.props.css.chart} ref={chart => this.chart = chart}/>
+        )
+    }
 }
 
 export default Chart;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from "react";
 import mui from 'material-ui';
 import Chart from './Chart.jsx';
 import Navbar from './Navbar.jsx';
@@ -15,6 +15,10 @@ import css from './app.css';
 @ThemeDecorator(ThemeManager.getMuiTheme(Theme))
 @styleable(css)
 class App extends React.Component {
+
+    static propTypes = {
+        css: PropTypes.object
+    };
 
     constructor(props) {
         super(props);

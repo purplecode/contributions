@@ -17,6 +17,7 @@ import store from '../stores/store';
 import Contributors from '../stores/Contributors';
 import FilteringStore from '../stores/Filtering';
 import {Constants as FilteringConstants} from '../stores/Filtering';
+import { autobind } from 'core-decorators';
 
 
 class Filtering extends React.Component {
@@ -48,6 +49,7 @@ class Filtering extends React.Component {
         reload();
     }
 
+    @autobind
     onRowSelection(selections) {
         let contributors = (selections === 'all') ? FilteringConstants.ALL : (selections === 'none' ? [] : selections.map(selection => {
             return this.state.contributors[selection];
@@ -68,11 +70,11 @@ class Filtering extends React.Component {
         return (
             <Table
                 multiSelectable={true}
-                onRowSelection={this.onRowSelection.bind(this)}
+                onRowSelection={this.onRowSelection}
             >
                 <TableHeader selectAllSelected={this.state.selected === FilteringConstants.ALL}>
                     <TableRow>
-                        <TableHeaderColumn width={20}></TableHeaderColumn>
+                        <TableHeaderColumn width={20}/>
                         <TableHeaderColumn>Name</TableHeaderColumn>
                         <TableHeaderColumn>Email</TableHeaderColumn>
                     </TableRow>
@@ -81,16 +83,16 @@ class Filtering extends React.Component {
                     {
                         this.state.contributors.map((contributor) => {
                             let selected = this.state.selected.indexOf(contributor) > -1 || this.state.selected === FilteringConstants.ALL;
-                            return <TableRow
+                            return (<TableRow
                                 key={contributor}
                                 selected={selected}
                             >
                                 <TableRowColumn width={20}>
-                                    <Avatar size={20} backgroundColor={Colors.getColor(contributor)}></Avatar>
+                                    <Avatar size={20} backgroundColor={Colors.getColor(contributor)}/>
                                 </TableRowColumn>
                                 <TableRowColumn>{extractTitle(contributor)}</TableRowColumn>
                                 <TableRowColumn>{contributor}</TableRowColumn>
-                            </TableRow>
+                            </TableRow>)
                         })
                     }
                 </TableBody>

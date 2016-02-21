@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import styleable from 'react-styleable';
 import Chart from './Chart.jsx';
 import Card from 'material-ui/lib/card/card';
@@ -9,10 +9,14 @@ import Contributions from '../stores/Contributions';
 
 import css from './project.css';
 
-console.log('css', css);
 
 @styleable(css)
 class Project extends React.Component {
+
+    static propTypes = {
+        css: PropTypes.object,
+        definition: PropTypes.object
+    };
 
     constructor(props) {
         super(props);
