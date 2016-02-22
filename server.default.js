@@ -7,6 +7,7 @@ const PROJECTS = {
         description: "Project contributions stats made with love by PurpleCode",
         repositories: [{
             type: 'git',
+            branch: 'master',
             path: '.'
         }]
     },
@@ -15,9 +16,11 @@ const PROJECTS = {
         description: "Just a copy of the project to show how to add multiple projects",
         repositories: [{
             type: 'git',
+            branch: 'master',
             path: '.'
         }, {
             type: 'git',
+            branch: 'master',
             path: '.'
         }]
     }

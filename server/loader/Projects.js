@@ -37,7 +37,7 @@ export default class Projects {
 
     _getContributions(repositories) {
         let promises = repositories.map((repository)=> {
-            return new GitRepository(repository.path, this.authors).getHistory().then((history) => {
+            return new GitRepository(repository.path, repository.branch, this.authors).getHistory().then((history) => {
                 return history.getMonthlyContributions();
             });
         });
@@ -56,7 +56,7 @@ export default class Projects {
 
     _getContributors(repositories) {
         let promises = repositories.map((repository)=> {
-            return new GitRepository(repository.path, this.authors).getHistory().then((history) => {
+            return new GitRepository(repository.path, repository.branch, this.authors).getHistory().then((history) => {
                 return [...history.getContributors()];
             });
         });
