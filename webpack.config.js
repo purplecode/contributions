@@ -1,5 +1,33 @@
 var webpack = require('webpack');
 
+var isProductionBuild = (process.argv.indexOf('--optimize-dedupe') !== -1);
+
+console.log(`Build type: ${isProductionBuild ? 'production' : 'development'}`);
+
+/*************************************************
+ *                 Plugins
+ *************************************************/
+var plugins = [new webpack.DefinePlugin({
+    __DEV__: isProductionBuild ? 'false' : 'true',
+    'process.env': {
+        'NODE_ENV': isProductionBuild ? "'production'" : "'development'"
+    }
+})];
+
+if (isProductionBuild) {
+    plugins.push(new webpack.optimize.DedupePlugin());
+    plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
+    plugins.push(new webpack.optimize.UglifyJsPlugin({
+        minimize: true,
+        compress: true,
+        sourceMap: true
+    }));
+}
+
+
+/*************************************************
+ *              Configuration
+ *************************************************/
 module.exports = {
     cache: true,
     entry: {
@@ -22,7 +50,7 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-                plugins: ['transform-decorators-legacy' ],
+                plugins: ['transform-decorators-legacy'],
                 presets: ['es2015', 'react', 'stage-0']
             }
         ]

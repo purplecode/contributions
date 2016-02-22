@@ -4,8 +4,8 @@
   "scripts": {
     "start": "npm run webpack",
     "webpack": "webpack --progress --colors --watch -d",
-    "build": "webpack --progress --colors",
-    "build-local": "node ./node_modules/webpack/bin/webpack.js --progress --colors -p",
+    "build": "webpack --progress --colors --optimize-minimize --optimize-dedupe",
+    "build-local": "node ./node_modules/webpack/bin/webpack.js --progress --colors -p --optimize-minimize --optimize-dedupe",
     "server": "node server/www -c './server.dev'"
   },
   "dependencies": {
