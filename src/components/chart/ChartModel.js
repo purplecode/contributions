@@ -23,10 +23,16 @@ export default class ChartModel {
 
     getXDomain() {
         let dates = this.getXValues();
+        if (_.isEmpty(dates)) {
+            return [];
+        }
         return [this._parseDate(dates[0]), this._parseDate(dates[dates.length - 1])];
     }
 
     getYDomain() {
+        if (_.isEmpty(this.contributions)) {
+            return [];
+        }
         let shifts = {};
         _.mapValues(this.contributions, (contributor) => {
             _.mapKeys(contributor, (count, date) => {

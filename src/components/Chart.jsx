@@ -19,7 +19,7 @@ class Chart extends React.Component {
     };
 
     componentDidUpdate() {
-        if (!_.isEmpty(this.props.contributions) && this.chart) {
+        if (/*!_.isEmpty(this.props.contributions) && */this.chart) {
             var element = ReactDOM.findDOMNode(this.chart);
             let model = new ChartModel(this.props.projectKey, this.props.contributions)
             new ChartView(element, this.props.css).render(model);
