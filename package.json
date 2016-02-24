@@ -16,6 +16,7 @@
     "d3": "3.5.13",
     "express": "4.12.3",
     "font-awesome": "4.5.0",
+    "http-auth": "^2.2.8",
     "jade": "1.9.2",
     "keymirror": "^0.1.1",
     "lodash": "4.0.0",
