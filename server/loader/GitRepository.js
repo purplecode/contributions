@@ -10,35 +10,72 @@ export default class GitRepository {
     }
 
     getHistory() {
+        return nodegit.Repository.open(this.path)
+            .then((repo) => {
+                return repo.getBranchCommit(this.branch || 'master');
+            })
+            .then(this.__getHistory.bind(this));
+    }
+
+    __getHistory(branch) {
         return new Promise((resolve, reject) => {
-            nodegit.Repository.open(this.path)
-                .then((repo) => {
-                    return repo.getBranchCommit(this.branch || 'master');
-                })
-                .then((firstCommitOnMaster) => {
-                    let history = new History();
-                    let logs = firstCommitOnMaster.history();
+            let history = new History();
+            let logs = branch.history();
 
-                    logs.on("commit", (commit) => {
-                        let author = this.authors.getId(commit.author().name(), commit.author().email());
-                        let commitDate = new Date(commit.date());
-                        if (commitDate > new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 365)) {
-                            history.addCommit(commit.sha(), author, commitDate, commit.message());
-                        }
-                    });
+            let status = {
+                commits: 0,
+                exit: false
+            };
 
-                    logs.on('end', () => {
-                        resolve(history);
-                    });
+            function tryResolve() {
+                if (status.commits === 0 && status.exit) {
+                    resolve(history);
+                }
+            }
 
-                    logs.on('error', (error) => {
-                        reject(error);
-                    });
+            logs.on("commit", (commit) => {
+                status.commits++;
 
-                    logs.start();
-                }).catch((error) => {
-                reject(error);
+                this.__getLineStats(commit).then(({added, deleted}) => {
+                    let author = this.authors.getId(commit.author().name(), commit.author().email());
+                    let date = new Date(commit.date());
+
+                    history.addCommit(commit.sha(), author, date, commit.message(), added, deleted);
+
+                    status.commits--;
+                    tryResolve();
+                }).catch(reject);
             });
+
+            logs.on('end', () => {
+                status.exit = true;
+                tryResolve();
+            });
+
+            logs.on('error', reject);
+
+            logs.start();
+        });
+    }
+
+    __getLineStats(commit) {
+        let lines = {
+            added: 0,
+            deleted: 0
+        };
+        return commit.getDiff().then((diffs) => {
+            return Promise.all(diffs.map((diff)=> {
+                return diff.patches().then(function (patches) {
+                    patches.forEach(function (patch) {
+                        let stats = patch.lineStats();
+                        lines.added += stats.total_additions;
+                        lines.deleted += stats.total_deletions;
+                    });
+                });
+            }));
+        }).then(() => {
+            return lines;
         });
     }
 }
+

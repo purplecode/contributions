@@ -44,9 +44,24 @@ export default class Projects {
         return Promise.all(promises).then((history) => {
             return history.reduce((memo, repoContributions) => {
                 _.forEach(repoContributions, function (userContributions, user) {
-                    _.forEach(userContributions, function (count, date) {
+                    _.forEach(userContributions, function (stats, date) {
                         memo[user] = memo[user] || {};
-                        memo[user][date] = (memo[user][date] || 0) + count;
+
+                        let monthly = memo[user][date] || {
+                                commits: 0,
+                                lines: {
+                                    added: 0,
+                                    deleted: 0,
+                                    delta: 0
+                                }
+                            };
+
+                        monthly.commits += stats.commits;
+                        monthly.lines.added += stats.lines.added;
+                        monthly.lines.deleted += stats.lines.deleted;
+                        monthly.lines.delta += stats.lines.delta;
+
+                        memo[user][date] = monthly;
                     });
                 });
                 return memo;

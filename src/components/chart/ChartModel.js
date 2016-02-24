@@ -4,9 +4,10 @@ import Colors from '../../styles/Colors';
 
 export default class ChartModel {
 
-    constructor(projectKey, contributions) {
+    constructor(projectKey, contributions, statistic = 'lines.delta') {
         this.projectKey = projectKey;
         this.contributions = contributions;
+        this.statistic = statistic;
     }
 
     _parseDate(date) {
@@ -35,8 +36,8 @@ export default class ChartModel {
         }
         let shifts = {};
         _.mapValues(this.contributions, (contributor) => {
-            _.mapKeys(contributor, (count, date) => {
-                shifts[date] = (shifts[date] || 0) + (count || 0);
+            _.mapKeys(contributor, (stats, date) => {
+                shifts[date] = (shifts[date] || 0) + _.get(stats, this.statistic, 0);
             });
         });
         return [0, _.max(_.values(shifts))];
@@ -62,7 +63,7 @@ export default class ChartModel {
                 name: contributor,
                 values: dates.map((date) => {
                     let y0 = (shifts[date] || 0);
-                    let y1 = y0 + (this.contributions[contributor][date] || 0);
+                    let y1 = y0 + _.get(this.contributions[contributor][date], this.statistic, 0);
                     shifts[date] = y1;
                     return {
                         date: this._parseDate(date),
