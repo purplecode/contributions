@@ -1,5 +1,14 @@
 import express from 'express';
 import Projects from '../loader/Projects';
+var auth = require('http-auth');
+
+//basic authentication
+var basic = auth.basic({
+        realm: "Web."
+    }, function (username, password, callback) { // Custom authentication method.
+        callback(username === "username" && password === "password");
+    }
+);
 
 let onError = (res) => {
   return (e) => {
@@ -14,7 +23,7 @@ module.exports = (config) => {
   let router = express.Router();
   let projects = new Projects(config.PROJECTS, config.AUTHORS);
 
-  router.get('/', function (req, res) {
+  router.get('/', auth.connect(basic), function (req, res) {
     res.render('index');
   });
 
