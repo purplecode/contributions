@@ -1,0 +1,8 @@
+.links {
+    width: 300px;
+    display: flex;
+}
+
+.tabs {
+    flex-grow: 1;
+}
