@@ -7,13 +7,13 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
 import Theme from '../styles/Theme';
 import store from '../stores/store';
-import Projects from '../stores/Projects';
+import ProjectsStore from '../stores/Projects';
 
-import css from './chartsList.css';
+import css from './projects.css';
 
 @ThemeDecorator(ThemeManager.getMuiTheme(Theme))
 @styleable(css)
-class App extends React.Component {
+class Projects extends React.Component {
 
     static propTypes = {
         css: PropTypes.object
@@ -26,7 +26,7 @@ class App extends React.Component {
             projects: []
         };
 
-        store.dispatch(Projects.getProjects()).then((projects) => {
+        store.dispatch(ProjectsStore.getProjects()).then((projects) => {
                 this.setState({projects: projects});
             }
         );
@@ -36,10 +36,12 @@ class App extends React.Component {
         return (
             <div className={this.props.css.app}>
                 <div className={this.props.css.content}>
-                    <Project definition={{key: 'total', name: 'Total'}}/>
+                    <Project definition={{key: 'total', name: 'Total'}} statistic={this.props.params.statistic}/>
                     {
-                        this.state.projects.map(function (project) {
-                            return <Project key={project.key} definition={project}/>;
+                        this.state.projects.map((project) => {
+                            return <Project key={project.key}
+                                            definition={project}
+                                            statistic={this.props.params.statistic}/>;
                         })
                     }
                 </div>
@@ -48,5 +50,5 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default Projects;
 

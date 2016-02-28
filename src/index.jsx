@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChartsList from './components/ChartsList.jsx';
+import Projects from './components/Projects.jsx';
 import App from './components/App.jsx';
 import { browserHistory, Router, Route, Link, IndexRedirect } from 'react-router'
 
@@ -14,7 +14,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRedirect to="/commits" />
-            <Route path="/:type" component={ChartsList} />
+            <Route path="/:statistic" component={Projects} />
         </Route>
     </Router>,
     document.getElementById("react-container")

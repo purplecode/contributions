@@ -15,13 +15,16 @@ class Project extends React.Component {
 
     static propTypes = {
         css: PropTypes.object,
-        definition: PropTypes.object
+        definition: PropTypes.object,
+        statistic: PropTypes.string
     };
 
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            contributions: {}
+        };
 
         let reload = () => {
             store.dispatch(Contributions.getContributions(this.props.definition.key)).then((contributions) => {
@@ -40,7 +43,9 @@ class Project extends React.Component {
             <Card>
                 <CardTitle title={this.props.definition.name} subtitle={this.props.definition.description}/>
                 <CardMedia className={this.props.css.cardMedia}>
-                    <Chart projectKey={this.props.definition.key} contributions={this.state.contributions}/>
+                    <Chart projectKey={this.props.definition.key}
+                           contributions={this.state.contributions}
+                           statistic={this.props.statistic}/>
                 </CardMedia>
             </Card>
         );

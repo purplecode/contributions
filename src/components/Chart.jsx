@@ -15,13 +15,15 @@ class Chart extends React.Component {
     static propTypes = {
         css: PropTypes.object,
         projectKey: PropTypes.string,
+        statistic: PropTypes.string,
         contributions: PropTypes.object
     };
 
     componentDidUpdate() {
         if (/*!_.isEmpty(this.props.contributions) && */this.chart) {
-            var element = ReactDOM.findDOMNode(this.chart);
-            let model = new ChartModel(this.props.projectKey, this.props.contributions)
+            let element = ReactDOM.findDOMNode(this.chart);
+            let statistic = this.props.statistic === 'commits' ? 'commits' : 'lines.delta';
+            let model = new ChartModel(this.props.projectKey, this.props.contributions, statistic);
             new ChartView(element, this.props.css).render(model);
         }
     }

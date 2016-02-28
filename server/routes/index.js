@@ -14,7 +14,7 @@ module.exports = (config) => {
   let router = express.Router();
   let projects = new Projects(config.PROJECTS, config.AUTHORS);
 
-  router.get(/^\/\w+$/, function (req, res) {
+  router.get(/^\/\w*$/, function (req, res) {
     res.render('index');
   });
 
