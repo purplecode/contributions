@@ -71,7 +71,7 @@ class Navbar extends React.Component {
                 </Tabs>
                 <div>
                     <IconButton linkButton href="https://github.com/purplecode/contributions">
-                        <FontIcon className="fa fa-github"/>
+                        <FontIcon className={this.props.css.icon + " fa fa-github"}/>
                     </IconButton>
                 </div>
             </div>

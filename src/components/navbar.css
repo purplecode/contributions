@@ -6,3 +6,8 @@
 .tabs {
     flex-grow: 1;
 }
+
+.icon {
+    color: white !important;
+}
+
