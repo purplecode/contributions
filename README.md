@@ -19,6 +19,35 @@ Use `npm start` to run webpack watch.
 
 In case of any problems with nodegit installation or problems with libstdc library, check the [package documentation](https://github.com/nodegit/nodegit).
 
+Configuration
+=====
+
+Copy and modify `server.default.js`. Then run
+
+```
+node server/www -c './your.server.config'
+```
+
+Configuration file is a module with the following exports:
+
+### PROJECTS
+Projects descriptions and paths to the cloned git projects.
+
+### AUTHORS
+Utility for translating git identifiers to readable names. Useful in the case when the same user has different identities in repositories or when you want to anonymize the results 
+
+### AUTHENTICATION
+Middleware for authentication. Default configuration contains two implementations. Default, without any restrictions and example one using `password` library. 
+In order to use `password` authentication remove the default, uncomment the code and install:
+
+```
+npm install password
+npm install password-http
+```
+
+then login using credentials `username` and `password`.
+
+
 License
 =======
 
