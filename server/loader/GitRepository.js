@@ -37,7 +37,7 @@ export default class GitRepository {
                 status.commits++;
 
                 this.__getLineStats(commit).then(({added, deleted}) => {
-                    let author = this.authors.getId(commit.author().name(), commit.author().email());
+                    let author = this.authors(commit.author().name(), commit.author().email());
                     let date = new Date(commit.date());
 
                     history.addCommit(commit.sha(), author, date, commit.message(), added, deleted);
