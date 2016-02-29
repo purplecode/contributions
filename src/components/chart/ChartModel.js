@@ -37,10 +37,11 @@ export default class ChartModel {
         let shifts = {};
         _.mapValues(this.contributions, (contributor) => {
             _.mapKeys(contributor, (stats, date) => {
-                shifts[date] = (shifts[date] || 0) + _.get(stats, this.statistic, 0);
+                shifts[date] = (shifts[date] || 0) + Math.max(_.get(stats, this.statistic, 0), 0);
             });
         });
-        return [0, _.max(_.values(shifts))];
+        let yValues = _.values(shifts);
+        return [Math.min(0, _.min(yValues)), _.max(yValues)];
     }
 
     getColor(name) {
@@ -63,7 +64,7 @@ export default class ChartModel {
                 name: contributor,
                 values: dates.map((date) => {
                     let y0 = (shifts[date] || 0);
-                    let y1 = y0 + _.get(this.contributions[contributor][date], this.statistic, 0);
+                    let y1 = y0 + Math.max(_.get(this.contributions[contributor][date], this.statistic, 0), 0);
                     shifts[date] = y1;
                     return {
                         date: this._parseDate(date),

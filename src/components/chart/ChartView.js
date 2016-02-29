@@ -29,7 +29,7 @@ export default class ChartView {
             .orient("left");
 
         var area = d3.svg.area()
-            .interpolate('cardinal')
+            .interpolate('monotone')
             .x(function (d) {
                 return x(d.date);
             })

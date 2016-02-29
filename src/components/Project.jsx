@@ -45,7 +45,8 @@ class Project extends React.Component {
                 <CardMedia className={this.props.css.cardMedia}>
                     <Chart projectKey={this.props.definition.key}
                            contributions={this.state.contributions}
-                           statistic={this.props.statistic}/>
+                           statistic={this.props.statistic}
+                    />
                 </CardMedia>
             </Card>
         );

@@ -16,7 +16,8 @@ import css from './projects.css';
 class Projects extends React.Component {
 
     static propTypes = {
-        css: PropTypes.object
+        css: PropTypes.object,
+        params: PropTypes.object
     };
 
     constructor(props) {
@@ -39,9 +40,12 @@ class Projects extends React.Component {
                     <Project definition={{key: 'total', name: 'Total'}} statistic={this.props.params.statistic}/>
                     {
                         this.state.projects.map((project) => {
-                            return <Project key={project.key}
-                                            definition={project}
-                                            statistic={this.props.params.statistic}/>;
+                            return (
+                                <Project key={project.key}
+                                         definition={project}
+                                         statistic={this.props.params.statistic}
+                                />
+                            );
                         })
                     }
                 </div>

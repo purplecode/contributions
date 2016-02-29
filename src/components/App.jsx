@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import AppBar from 'material-ui/lib/app-bar';
 import FontIcon from 'material-ui/lib/font-icon';
 import FlatButton from 'material-ui/lib/flat-button';
@@ -14,6 +14,11 @@ import { Link } from 'react-router'
 
 
 class App extends React.Component {
+
+    static propTypes = {
+        children: PropTypes.object
+    };
+
 
     render() {
         return (

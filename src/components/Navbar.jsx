@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styleable from 'react-styleable';
 import AppBar from 'material-ui/lib/app-bar';
 import FontIcon from 'material-ui/lib/font-icon';
@@ -13,12 +13,17 @@ import Filtering from './Filtering.jsx';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 import { Link } from 'react-router'
+import { autobind } from 'core-decorators';
 
 import css from './navbar.css';
 
 
 @styleable(css)
 class Navbar extends React.Component {
+
+    static propTypes = {
+        css: PropTypes.object
+    };
 
     static contextTypes = {
         router: React.PropTypes.object.isRequired
@@ -32,11 +37,11 @@ class Navbar extends React.Component {
         };
     }
 
-    componentWillReceiveProps() {
+    componentDidMount() {
         this.handleRouteChange();
     }
 
-    componentDidMount() {
+    componentWillReceiveProps() {
         this.handleRouteChange();
     }
 
@@ -46,11 +51,13 @@ class Navbar extends React.Component {
         });
     }
 
+    @autobind
     handleTabChange(value, event, tab) {
         this.context.router.push(tab.props.route);
         this.handleRouteChange();
     }
 
+    @autobind
     handleToggle() {
         this.setState({open: !this.state.open});
     }
@@ -58,14 +65,14 @@ class Navbar extends React.Component {
     render() {
 
         let leftElement = (
-            <IconButton onTouchTap={this.handleToggle.bind(this)}>
+            <IconButton onTouchTap={this.handleToggle}>
                 <ToggleLeftNav/>
             </IconButton>
         );
 
         let rightElement = (
             <div className={this.props.css.links}>
-                <Tabs className={this.props.css.tabs} value={`${this.state.selectedTab}`} onChange={this.handleTabChange.bind(this)}>
+                <Tabs className={this.props.css.tabs} value={`${this.state.selectedTab}`} onChange={this.handleTabChange}>
                     <Tab label="Commits" value="0" route="/commits"/>
                     <Tab label="Lines of code" value="1" route="/lines"/>
                 </Tabs>
@@ -84,8 +91,7 @@ class Navbar extends React.Component {
                     iconElementLeft={leftElement}
                     iconElementRight={rightElement}
                 />
-                <LeftNav width={600} docked={false} open={this.state.open}
-                         onRequestChange={open => this.setState({open})}>
+                <LeftNav width={600} docked={false} open={this.state.open} onRequestChange={open => this.setState({open})}>
                     <Filtering/>
                 </LeftNav>
             </div>
