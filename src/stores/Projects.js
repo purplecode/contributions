@@ -24,7 +24,7 @@ const Actions = {
     fetchProjects() {
         return dispatch => {
             dispatch(this.actions.requestProjects());
-            return fetch(`/api/v1/projects`)
+            return fetch(`/api/v1/projects`, {credentials: 'include'})
                 .then(response => response.json())
                 .then(json => dispatch(this.actions.receiveProjects(json)))
         };

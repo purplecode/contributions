@@ -26,7 +26,7 @@ const Actions = {
     fetchContributions(projectKey) {
         return dispatch => {
             dispatch(this.actions.requestContributions(projectKey));
-            return fetch( `/api/v1/contributions/${projectKey}`)
+            return fetch( `/api/v1/contributions/${projectKey}`, {credentials: 'include'})
                 .then(response => response.json())
                 .then(json => dispatch(this.actions.receiveContributions(projectKey, json)))
         };

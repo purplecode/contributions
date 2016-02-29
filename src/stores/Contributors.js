@@ -24,7 +24,7 @@ const Actions = {
     fetchContributors() {
         return dispatch => {
             dispatch(this.actions.requestContributors());
-            return fetch(`/api/v1/contributors`)
+            return fetch(`/api/v1/contributors`, {credentials: 'include'})
                 .then(response => response.json())
                 .then(json => dispatch(this.actions.receiveContributors(json)))
         };
