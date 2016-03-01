@@ -24,6 +24,7 @@
     "moment": "2.11.1",
     "morgan": "1.5.2",
     "nanoajax": "0.4.1",
+    "node-schedule": "^1.0.0",
     "nodegit": "0.8.0",
     "react": "0.14.6",
     "react-dom": "0.14.6",

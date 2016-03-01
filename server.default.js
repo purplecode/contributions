@@ -6,11 +6,6 @@ export const PROJECTS = {
         name: 'PurpleCode.Contributions 1',
         description: "Project contributions stats made with love by PurpleCode",
         repositories: [{
-            type: 'git',
-            branch: 'master',
-            path: '.'
-        }, {
-            type: 'git',
             branch: 'master',
             path: '.'
         }]
@@ -19,7 +14,6 @@ export const PROJECTS = {
         name: 'PurpleCode.Contributions 2',
         description: "Just a copy of the project to show how to add multiple projects",
         repositories: [{
-            type: 'git',
             branch: 'master',
             path: '.',
             /**

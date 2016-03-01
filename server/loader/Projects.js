@@ -1,10 +1,10 @@
-import GitRepository from './GitRepository';
 import _ from 'lodash';
+import Cache from './Cache';
 
 export default class Projects {
     constructor(projects, authors) {
         this.projects = projects;
-        this.authors = authors;
+        this.cache = new Cache(projects, authors);
     }
 
     getProjectDefinitions() {
@@ -37,7 +37,7 @@ export default class Projects {
 
     _getContributions(repositories) {
         let promises = repositories.map((repository)=> {
-            return new GitRepository(repository, this.authors).getHistory().then((history) => {
+            return this.cache.getHistory(repository).then((history) => {
                 return history.getMonthlyContributions();
             });
         });
@@ -71,7 +71,7 @@ export default class Projects {
 
     _getContributors(repositories) {
         let promises = repositories.map((repository)=> {
-            return new GitRepository(repository, this.authors).getHistory().then((history) => {
+            return this.cache.getHistory(repository).then((history) => {
                 return [...history.getContributors()];
             });
         });

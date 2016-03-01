@@ -1,8 +1,10 @@
 contributions
 =====================
 
-Shows git project contributions in a form of stacked area chart. Each project separately and total summary.
+Shows git project contributions in a form of stacked area charts for multiple projects and branches. Statistics are fetched from locally cloned repositories.
+Results are cached and reloaded every half an hour. Results can be filtered out by contributors.
 
+Flexible and programmable configuration allows you to adjust user ids, filter commits or even create your own authentication mechanism.
 
 Usage
 =====
