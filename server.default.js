@@ -9,6 +9,10 @@ export const PROJECTS = {
             type: 'git',
             branch: 'master',
             path: '.'
+        }, {
+            type: 'git',
+            branch: 'master',
+            path: '.'
         }]
     },
     sampleProject2: {
@@ -17,11 +21,15 @@ export const PROJECTS = {
         repositories: [{
             type: 'git',
             branch: 'master',
-            path: '.'
-        }, {
-            type: 'git',
-            branch: 'master',
-            path: '.'
+            path: '.',
+            /**
+             * You can optionally filter commits, i.e. by date
+             */
+            filter: (commit:Commit) => {
+                let moment = require('moment');
+                let yearAgo = moment().subtract(1, 'year').toDate();
+                return commit.date() > yearAgo;
+            }
         }]
     }
 };

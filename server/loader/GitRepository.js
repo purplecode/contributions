@@ -3,16 +3,15 @@ import _ from 'lodash';
 import History from './History';
 
 export default class GitRepository {
-    constructor(path, branch, authors) {
-        this.path = path;
-        this.branch = branch;
+    constructor(repository, authors) {
+        this.repository = repository;
         this.authors = authors;
     }
 
     getHistory() {
-        return nodegit.Repository.open(this.path)
+        return nodegit.Repository.open(this.repository.path)
             .then((repo) => {
-                return repo.getBranchCommit(this.branch || 'master');
+                return repo.getBranchCommit(this.repository.branch || 'master');
             })
             .then(this.__getHistory.bind(this));
     }
@@ -40,7 +39,9 @@ export default class GitRepository {
                     let author = this.authors(commit.author().name(), commit.author().email());
                     let date = new Date(commit.date());
 
-                    history.addCommit(commit.sha(), author, date, commit.message(), added, deleted);
+                    if (!this.repository.filter || this.repository.filter(commit)) {
+                        history.addCommit(commit.sha(), author, date, commit.message(), added, deleted);
+                    }
 
                     status.commits--;
                     tryResolve();
