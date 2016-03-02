@@ -1,6 +1,9 @@
 import nodegit from 'nodegit';
 import _ from 'lodash';
 import History from './History';
+import Forks from './Forks';
+
+const NUMBER_OF_FORKS = 4;
 
 export default class GitRepository {
     constructor(repository, authors) {
@@ -17,6 +20,11 @@ export default class GitRepository {
     }
 
     __getHistory(branch) {
+        /**
+         * Initially, it was a reusable pool of forks, but nodegit has some memory leaks while fetching diffs.
+         */
+        let forks = new Forks(NUMBER_OF_FORKS, 'Fork.js');
+
         return new Promise((resolve, reject) => {
             let history = new History();
             let logs = branch.history();
@@ -33,19 +41,21 @@ export default class GitRepository {
             }
 
             logs.on("commit", (commit) => {
-                status.commits++;
+                if (!this.repository.filter || this.repository.filter(commit)) {
+                    status.commits++;
 
-                this.__getLineStats(commit).then(({added, deleted}) => {
                     let author = this.authors(commit.author().name(), commit.author().email());
                     let date = new Date(commit.date());
 
-                    if (!this.repository.filter || this.repository.filter(commit)) {
+                    forks.process({
+                        repository: this.repository.path,
+                        oid: commit.sha()
+                    }).then(({added, deleted}) => {
                         history.addCommit(commit.sha(), author, date, commit.message(), added, deleted);
-                    }
-
-                    status.commits--;
-                    tryResolve();
-                }).catch(reject);
+                        status.commits--;
+                        tryResolve();
+                    }).catch(reject);
+                }
             });
 
             logs.on('end', () => {
@@ -56,6 +66,10 @@ export default class GitRepository {
             logs.on('error', reject);
 
             logs.start();
+        }).then(response => {
+            /* finally is still not a standard  */
+            forks.kill();
+            return response;
         });
     }
 
