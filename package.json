@@ -6,6 +6,7 @@
     "webpack": "webpack --progress --colors --watch -d",
     "build": "webpack --progress --colors --optimize-minimize --optimize-dedupe",
     "build-local": "node ./node_modules/webpack/bin/webpack.js --progress --colors -p --optimize-minimize --optimize-dedupe",
+    "build-worker": "browserify src/components/chart/ChartView.worker.js -o public/build/ChartView.worker.bundle.js -t  babelify --presets [ es2015 stage-0 ]",
     "server": "node server/www -c './server.dev'"
   },
   "dependencies": {
@@ -46,16 +47,20 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
+    "babelify": "^7.2.0",
     "css-loader": "0.23.1",
     "eslint": "^2.2.0",
     "eslint-plugin-react": "^4.0.0",
     "file-loader": "0.8.5",
     "gulp": "^3.9.1",
     "gulp-eslint": "^2.0.0",
+    "jsdom": "^8.1.0",
+    "json-loader": "^0.5.4",
     "less": "2.5.3",
     "less-loader": "2.2.2",
     "react-styleable": "^2.2.3",
     "style-loader": "0.13.0",
-    "webpack": "1.12.11"
+    "webpack": "1.12.11",
+    "worker-loader": "^0.7.0"
   }
 }

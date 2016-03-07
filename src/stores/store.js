@@ -7,8 +7,8 @@ import reducers from './reducers'
 const loggerMiddleware = Logger();
 
 const createStoreWithMiddleware = applyMiddleware(
-    ThunkMiddleware,
-    loggerMiddleware
+    ThunkMiddleware//,
+    //loggerMiddleware
 )(createStore);
 
 export default createStoreWithMiddleware(reducers);

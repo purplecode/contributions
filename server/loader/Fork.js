@@ -32,9 +32,6 @@ function getLineStats(commit) {
 
 
 process.on('message', message => {
-
-    console.log(message.data.oid)
-
     getRepository(message.data.repository).then(repository => {
         repository.getCommit(message.data.oid).then(getLineStats).then((response) => {
             process.send({id: message.id, data: response});

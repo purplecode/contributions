@@ -1,5 +1,7 @@
 import d3 from 'd3';
 
+var worker = new Worker("/build/ChartView.worker.bundle.js");
+
 export default class ChartView {
     constructor(element, css) {
         this.element = element;
@@ -7,6 +9,24 @@ export default class ChartView {
     }
 
     render(model) {
+
+        var parentWidth = parseInt(d3.select(this.element).style('width'), 10);
+
+        worker.postMessage({
+            width: parentWidth,
+            series: model.getSeriesData(),
+            xDomain: model.getXDomain(),
+            yDomain: model.getYDomain()
+        });
+        worker.onmessage = function (event) {
+            console.log('main', event.data)
+        };
+
+        ////////////////////////////////
+        this.__render(model);
+    }
+
+    __render(model) {
 
         var parentWidth = parseInt(d3.select(this.element).style('width'), 10);
 

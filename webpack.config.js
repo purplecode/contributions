@@ -35,12 +35,23 @@ module.exports = {
     },
     output: {
         path: 'public/build',
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath: "/build/"
     },
     module: {
         loaders: [
-            {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader'},
-            {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'},
+            {
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'url-loader'
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'file-loader'
+            },
+            {
+                test: /\.json$/,
+                loader: 'json-loader'
+            },
             {
                 test: /\.css$/,
                 exclude: /font-awesome|index/,
@@ -52,6 +63,10 @@ module.exports = {
                 exclude: /node_modules/,
                 plugins: ['transform-decorators-legacy'],
                 presets: ['es2015', 'react', 'stage-0']
+            },
+            {
+                test: /\.worker\.bundle\.js$/,
+                loader: 'worker-loader'
             }
         ]
     },
