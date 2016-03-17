@@ -32,6 +32,7 @@ class Chart extends React.Component {
     shouldComponentUpdate(nextProps, nextState) {
         let shouldUpdate = this.props.projectKey !== nextProps.projectKey
             || this.props.statistic !== nextProps.statistic
+            || !_.isEqual(Object.keys(this.props.contributions), Object.keys(nextProps.contributions))
             || this.state.html !== nextState.html
             || this.initialRender;
 

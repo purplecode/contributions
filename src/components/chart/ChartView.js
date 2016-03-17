@@ -6,7 +6,7 @@ class Measure {
     }
 
     start(id) {
-        console.log(`Rendering chart ${this.key}-${id}...`)
+        console.log(`Rendering chart ${this.key}...`)
         performance.mark(`mark-${this.key}-${id}-start`);
     }
 
@@ -14,6 +14,7 @@ class Measure {
         let prefix = `mark-${this.key}-${id}`;
         performance.mark(`${prefix}-end`);
         performance.measure(`${prefix}-measure`, `${prefix}-start`, `${prefix}-end`);
+        
         let diff = performance.getEntriesByName(`${prefix}-measure`)[0].duration / 1000;
         console.log(`Rendering chart ${this.key}... done. (${diff.toFixed(2)}s)`)
     }
