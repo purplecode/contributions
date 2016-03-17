@@ -10,7 +10,7 @@ export default class Forks {
         this.todo = [];
         this.inprogress = {};
 
-        this.forks = _.times(N, Number).map(__ => {
+        this.forks = _.times(N, Number).map(() => {
             let fork = child_process.fork(`${__dirname}/${scriptPath}`);
 
             fork.$isBusy = false;

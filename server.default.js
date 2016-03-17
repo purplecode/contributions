@@ -18,8 +18,11 @@ export const PROJECTS = {
             path: '.',
             /**
              * You can optionally filter commits, i.e. by date
+             *
+             * @param {Commit} commit
+             * @returns {boolean}
              */
-            filter: (commit:Commit) => {
+            filter: (commit) => {
                 let moment = require('moment');
                 let yearAgo = moment().subtract(1, 'year').toDate();
                 return commit.date() > yearAgo;
@@ -55,7 +58,10 @@ export const AUTHORS = (name, email) => {
  */
 export const AUTHENTICATION = {
 
-    configure(app) {
+    /**
+     * @param {express app} app
+     */
+    configure(/*app*/) {
         // do nothing
     },
 

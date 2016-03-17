@@ -1,6 +1,4 @@
 import React, {PropTypes} from "react";
-import mui from 'material-ui';
-import Chart from './Chart.jsx';
 import Project from './Project.jsx';
 import styleable from 'react-styleable';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';

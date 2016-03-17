@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import keyMirror from 'keymirror';
 
 const Constants = keyMirror({

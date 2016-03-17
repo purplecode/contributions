@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Projects from './components/Projects.jsx';
 import App from './components/App.jsx';
-import { browserHistory, Router, Route, Link, IndexRedirect } from 'react-router'
+import { browserHistory, Router, Route, IndexRedirect } from 'react-router'
 
+// remember updating ignore list in webpack.config
 import "style!css!font-awesome/css/font-awesome.css";
 import "style!css!./index.css";
 

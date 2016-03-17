@@ -1,5 +1,4 @@
 import nodegit from 'nodegit';
-import _ from 'lodash';
 import History from './History';
 import Forks from './Forks';
 
@@ -26,6 +25,9 @@ export default class GitRepository {
         let forks = new Forks(NUMBER_OF_FORKS, 'Fork.js');
 
         return new Promise((resolve, reject) => {
+
+            console.log(`Loading data for: ${this.repository.path} (${this.repository.branch})...`);
+
             let history = new History();
             let logs = branch.history();
 
@@ -69,6 +71,9 @@ export default class GitRepository {
         }).then(response => {
             /* finally is still not a standard  */
             forks.kill();
+
+            console.log(`Loading data for: ${this.repository.path} (${this.repository.branch}) DONE`);
+
             return response;
         });
     }

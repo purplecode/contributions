@@ -1,5 +1,4 @@
 ////// MAGIC START //////
-
 var jsdom = require('jsdom');
 
 var document = jsdom.jsdom('<div class="container"></div>');
@@ -8,12 +7,9 @@ var window = document.defaultView;
 self.document = document;
 self.window = window;
 
-// order matters
+// requires window & document
 var d3 = require('d3');
-
 ////// MAGIC END //////
-
-
 
 function render(options) {
 
@@ -26,6 +22,10 @@ function render(options) {
 
     var y = d3.scale.linear()
         .range([height, 0]);
+
+    x.domain(options.xDomain);
+
+    y.domain(options.yDomain);
 
     var xAxis = d3.svg.axis()
         .scale(x)
@@ -47,26 +47,50 @@ function render(options) {
             return y(d.y);
         });
 
-    var svg = d3.select('.container').append("svg")
+    var container = d3.select('.container');
+
+    container.select("svg").remove();
+
+    var svg = container.append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    x.domain(options.xDomain);
+    var series = svg.selectAll(".series")
+        .data(options.series)
+        .enter().append("g")
+        .attr("class", "series");
 
-    y.domain(options.yDomain);
+    series.append("path")
+        .attr("class", "area hint--bottom")
+        .attr("data-value", function (d) {
+            return d.name;
+        })
+        .attr("d", function (d) {
+            return area(d.values);
+        });
 
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis).selectAll("text")
+        .attr("y", 10)
+        .attr("x", 9)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(30)")
+        .style("text-anchor", "start");
 
-
-
-
-
-
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
 
     return document.querySelector('.container').innerHTML;
 }
 
 onmessage = function (event) {
-    postMessage(render(event.data));
+    postMessage({
+        id: event.data.id,
+        html: render(event.data)
+    });
 };

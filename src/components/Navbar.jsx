@@ -2,17 +2,12 @@ import React, { PropTypes } from 'react';
 import styleable from 'react-styleable';
 import AppBar from 'material-ui/lib/app-bar';
 import FontIcon from 'material-ui/lib/font-icon';
-import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
-import FontAwesome from 'react-fontawesome';
 import LeftNav from 'material-ui/lib/left-nav';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import RaisedButton from 'material-ui/lib/raised-button';
 import ToggleLeftNav from 'material-ui/lib/svg-icons/action/view-headline';
 import Filtering from './Filtering.jsx';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
-import { Link } from 'react-router'
 import { autobind } from 'core-decorators';
 
 import css from './navbar.css';

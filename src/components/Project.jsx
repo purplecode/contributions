@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import styleable from 'react-styleable';
-import Chart from './Chart.jsx';
+import Chart from './chart/Chart.jsx';
 import Card from 'material-ui/lib/card/card';
 import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
